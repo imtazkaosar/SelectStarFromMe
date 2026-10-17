@@ -20,6 +20,7 @@ Topics covered:
 - Arithmetic Expressions
 - Column Aliases
 - String concatenation (`||`)
+- DISTINCT for Duplicate row 
 - Column Formatting
 - NULL Values
 - UPDATE Statements
