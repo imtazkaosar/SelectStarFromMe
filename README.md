@@ -26,3 +26,26 @@ Topics covered:
 - UPDATE Statements
 
 **All the practice commands are collected together at the end of the file for easy reference.**
+
+## File 03: WHERE Conditions and Sorting
+
+**File:** `03_WHERE_Conditions_and_Sorting.LST`
+
+**Topics covered:**
+- WHERE Clause
+- Comparison Operators
+- Logical Operators
+- Equality and Inequality Conditions
+- BETWEEN Operator
+- LIKE Operator
+- IN and NOT IN Operators
+- ORDER BY Clause
+- Ascending and Descending Order
+- Sorting by Multiple Columns
+- Filtering Records
+- Substitution Variables
+- Single Ampersand (`&`) Substitution Variables
+- Double Ampersand (`&&`) Substitution Variables
+- Row Limiting Clause
+
+**All the practice commands are collected together at the end of the file for easy reference.**
