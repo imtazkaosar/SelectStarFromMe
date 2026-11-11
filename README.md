@@ -49,3 +49,24 @@ Topics covered:
 - Row Limiting Clause
 
 **All the practice commands are collected together at the end of the file for easy reference.**
+
+## File 04: Oracle SQL Functions and Grouping
+
+**File:** `04_Oracle_SQL_Functions_and_Grouping.LST`
+
+**Topics covered:**
+- Aggregate Functions (`SUM`, `COUNT`)
+- Character Functions (`UPPER`, `LOWER`, `INITCAP`)
+- String Functions (`CONCAT`, `SUBSTR`, `INSTR`, `LENGTH`)
+- String Formatting (`LPAD`, `RPAD`)
+- String Manipulation (`REPLACE`, `TRIM`)
+- Numeric Functions (`ROUND`, `TRUNC`, `MOD`)
+- Date Arithmetic
+- Date Functions (`SYSDATE`, `CURRENT_DATE`, `MONTHS_BETWEEN`, `NEXT_DAY`)
+- Date Formatting with `TO_CHAR`
+- Grouping with `GROUP BY`
+- Sorting Grouped Results with `ORDER BY`
+- Oracle `DUAL` Table
+- `USER` Function
+
+**All the practice commands are collected together at the end of the file for easy reference.**
