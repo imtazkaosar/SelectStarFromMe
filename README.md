@@ -70,3 +70,28 @@ Topics covered:
 - `USER` Function
 
 **All the practice commands are collected together at the end of the file for easy reference.**
+
+## File 05: Aggregate Functions, Grouping and Joins
+
+**File:** `05_Aggregate_Functions_Grouping_and_Joins.LST`
+
+**Topics covered:**
+- Aggregate Functions (`SUM`,` AVG`, `COUNT`, `MAX`, `MIN`)
+- DISTINCT with `Aggregate Functions`
+- Handling NULL Values with `NVL`
+- GROUP BY Clause
+- Grouping by Multiple Columns
+- `HAVING` Clause
+- WHERE vs. HAVING
+- Oracle Joins (Traditional Join Syntax)
+- ANSI JOIN Syntax (`JOIN`, `ON`)
+- Table Aliases
+- Joining Multiple Tables
+- Self Join
+- Inner Join
+- Left Outer Join
+- Right Outer Join
+- Full Outer Join
+- Cross Join
+
+**All the practice commands are collected together at the end of the file for easy reference.**
