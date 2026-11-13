@@ -1,0 +1,1947 @@
+SQL> show spool
+spool ON
+SQL> select salary
+  2  from   employees
+  3  where  employee_id = 120 ;
+
+    SALARY                                                                      
+----------                                                                      
+      8000                                                                      
+
+SQL> select employee_id, last_name, salary
+  2  from   employees
+  3  where  salary > 8000 ;
+
+EMPLOYEE_ID LAST_NAME                     SALARY                                
+----------- ------------------------- ----------                                
+        100 King                           24000                                
+        101 Kochhar                        17000                                
+        102 De Haan                        17000                                
+        103 Hunold                          9000                                
+        108 Greenberg                      12008                                
+        109 Faviet                          9000                                
+        110 Chen                            8200                                
+        114 Raphaely                       11000                                
+        121 Fripp                           8200                                
+        145 Russell                        14000                                
+        146 Partners                       13500                                
+
+EMPLOYEE_ID LAST_NAME                     SALARY                                
+----------- ------------------------- ----------                                
+        147 Errazuriz                      12000                                
+        148 Cambrault                      11000                                
+        149 Zlotkey                        10500                                
+        150 Tucker                         10000                                
+        151 Bernstein                       9500                                
+        152 Hall                            9000                                
+        156 King                           10000                                
+        157 Sully                           9500                                
+        158 McEwen                          9000                                
+        162 Vishney                        10500                                
+        163 Greene                          9500                                
+
+EMPLOYEE_ID LAST_NAME                     SALARY                                
+----------- ------------------------- ----------                                
+        168 Ozer                           11500                                
+        169 Bloom                          10000                                
+        170 Fox                             9600                                
+        174 Abel                           11000                                
+        175 Hutton                          8800                                
+        176 Taylor                          8600                                
+        177 Livingston                      8400                                
+        201 Hartstein                      13000                                
+        204 Baer                           10000                                
+        205 Higgins                        12008                                
+        206 Gietz                           8300                                
+
+33 rows selected.
+
+SQL> select employee_id, last_name, salary
+  2  from   employees
+  3  where  salary > 8000
+  4  order  by 3;
+
+EMPLOYEE_ID LAST_NAME                     SALARY                                
+----------- ------------------------- ----------                                
+        110 Chen                            8200                                
+        121 Fripp                           8200                                
+        206 Gietz                           8300                                
+        177 Livingston                      8400                                
+        176 Taylor                          8600                                
+        175 Hutton                          8800                                
+        152 Hall                            9000                                
+        109 Faviet                          9000                                
+        103 Hunold                          9000                                
+        158 McEwen                          9000                                
+        151 Bernstein                       9500                                
+
+EMPLOYEE_ID LAST_NAME                     SALARY                                
+----------- ------------------------- ----------                                
+        157 Sully                           9500                                
+        163 Greene                          9500                                
+        170 Fox                             9600                                
+        150 Tucker                         10000                                
+        204 Baer                           10000                                
+        169 Bloom                          10000                                
+        156 King                           10000                                
+        162 Vishney                        10500                                
+        149 Zlotkey                        10500                                
+        114 Raphaely                       11000                                
+        174 Abel                           11000                                
+
+EMPLOYEE_ID LAST_NAME                     SALARY                                
+----------- ------------------------- ----------                                
+        148 Cambrault                      11000                                
+        168 Ozer                           11500                                
+        147 Errazuriz                      12000                                
+        108 Greenberg                      12008                                
+        205 Higgins                        12008                                
+        201 Hartstein                      13000                                
+        146 Partners                       13500                                
+        145 Russell                        14000                                
+        102 De Haan                        17000                                
+        101 Kochhar                        17000                                
+        100 King                           24000                                
+
+33 rows selected.
+
+SQL> select employee_id, last_name, salary
+  2  from   employees
+  3  where  salary > (select salary
+  4  from   employees
+  5  where  employee_id = 120)
+  6  order  by 3;
+
+EMPLOYEE_ID LAST_NAME                     SALARY                                
+----------- ------------------------- ----------                                
+        110 Chen                            8200                                
+        121 Fripp                           8200                                
+        206 Gietz                           8300                                
+        177 Livingston                      8400                                
+        176 Taylor                          8600                                
+        175 Hutton                          8800                                
+        152 Hall                            9000                                
+        109 Faviet                          9000                                
+        103 Hunold                          9000                                
+        158 McEwen                          9000                                
+        151 Bernstein                       9500                                
+
+EMPLOYEE_ID LAST_NAME                     SALARY                                
+----------- ------------------------- ----------                                
+        157 Sully                           9500                                
+        163 Greene                          9500                                
+        170 Fox                             9600                                
+        150 Tucker                         10000                                
+        204 Baer                           10000                                
+        169 Bloom                          10000                                
+        156 King                           10000                                
+        162 Vishney                        10500                                
+        149 Zlotkey                        10500                                
+        114 Raphaely                       11000                                
+        174 Abel                           11000                                
+
+EMPLOYEE_ID LAST_NAME                     SALARY                                
+----------- ------------------------- ----------                                
+        148 Cambrault                      11000                                
+        168 Ozer                           11500                                
+        147 Errazuriz                      12000                                
+        108 Greenberg                      12008                                
+        205 Higgins                        12008                                
+        201 Hartstein                      13000                                
+        146 Partners                       13500                                
+        145 Russell                        14000                                
+        102 De Haan                        17000                                
+        101 Kochhar                        17000                                
+        100 King                           24000                                
+
+33 rows selected.
+
+SQL> select employee_id, last_name, salary
+  2  from   employees
+  3  where  salary > (select salary
+  4  from   employees
+  5  where  department_id = 90);
+where  salary > (select salary
+                 *
+ERROR at line 3:
+ORA-01427: single-row subquery returns more than one row 
+
+
+SQL> select employee_id, last_name, salary
+  2  from   employees
+  3  where  salary in (select salary
+  4                    from   employees
+  5                    where  department_id = 90);
+
+EMPLOYEE_ID LAST_NAME                     SALARY                                
+----------- ------------------------- ----------                                
+        100 King                           24000                                
+        101 Kochhar                        17000                                
+        102 De Haan                        17000                                
+
+SQL> SELECT last_name, job_id, salary
+  2  FROM   employees
+  3  WHERE job_id =
+  4  (SELECT job_id
+  5  FROM employees
+  6  WHERE last_name = 'Taylor')
+  7  AND salary >
+  8  (SELECT salary
+  9  FROM employees
+ 10  WHERE last_name = 'Taylor');
+(SELECT job_id
+ *
+ERROR at line 4:
+ORA-01427: single-row subquery returns more than one row 
+
+
+SQL> select employee_id, last_name, department_id, salary, hire_date
+  2  from   employees
+  3  where  salary > (select salary
+  4  from   employees
+  5  where  employee_id = 120)
+  6  and    department_id < (select department_id
+  7  from   employees
+  8  where  last_name='Hall')
+  9  order  by 3;
+
+EMPLOYEE_ID LAST_NAME                 DEPARTMENT_ID     SALARY HIRE_DATE        
+----------- ------------------------- ------------- ---------- ---------        
+        201 Hartstein                            20      13000 17-FEB-04        
+        114 Raphaely                             30      11000 07-DEC-02        
+        121 Fripp                                50       8200 10-APR-05        
+        103 Hunold                               60       9000 03-JAN-06        
+        204 Baer                                 70      10000 07-JUN-02        
+
+SQL> select employee_id, last_name, department_id, salary, hire_date
+  2  from   employees
+  3  where  salary > (select salary
+  4  from   employees
+  5  where  employee_id = 120)
+  6  and    department_id < (select department_id
+  7  from   employees
+  8  where  last_name='Hall')
+  9  and    hire_date > (select hire_date
+ 10  from   employees
+ 11  where  employee_id = 201)
+ 12  order  by 3;
+
+EMPLOYEE_ID LAST_NAME                 DEPARTMENT_ID     SALARY HIRE_DATE        
+----------- ------------------------- ------------- ---------- ---------        
+        121 Fripp                                50       8200 10-APR-05        
+        103 Hunold                               60       9000 03-JAN-06        
+
+SQL> select employee_id, last_name, department_id, salary, hire_date
+  2  from   employees
+  3  where  salary > (select salary
+  4  from   employees
+  5  where  employee_id = 120)
+  6  and    department_id < (select department_id
+  7  from   employees
+  8  where  last_name='Hall')
+  9  and    to_char(hire_date, 'YYYY') > 2004
+ 10  order  by 3;
+
+EMPLOYEE_ID LAST_NAME                 DEPARTMENT_ID     SALARY HIRE_DATE        
+----------- ------------------------- ------------- ---------- ---------        
+        121 Fripp                                50       8200 10-APR-05        
+        103 Hunold                               60       9000 03-JAN-06        
+
+SQL> select employee_id, last_name, department_id, salary, hire_date
+  2  from   employees
+  3  where  to_char(hire_date, 'YYYY') > 2004
+  4  order  by 5;
+
+EMPLOYEE_ID LAST_NAME                 DEPARTMENT_ID     SALARY HIRE_DATE        
+----------- ------------------------- ------------- ---------- ---------        
+        146 Partners                             80      13500 05-JAN-05        
+        142 Davies                               50       3100 29-JAN-05        
+        150 Tucker                               80      10000 30-JAN-05        
+        131 Marlow                               50       2500 16-FEB-05        
+        185 Bull                                 50       4100 20-FEB-05        
+        193 Everett                              50       3900 03-MAR-05        
+        159 Smith                                80       8000 10-MAR-05        
+        147 Errazuriz                            80      12000 10-MAR-05        
+        168 Ozer                                 80      11500 11-MAR-05        
+        175 Hutton                               80       8800 19-MAR-05        
+        151 Bernstein                            80       9500 24-MAR-05        
+
+EMPLOYEE_ID LAST_NAME                 DEPARTMENT_ID     SALARY HIRE_DATE        
+----------- ------------------------- ------------- ---------- ---------        
+        121 Fripp                                50       8200 10-APR-05        
+        188 Chung                                50       3800 14-JUN-05        
+        105 Austin                               60       4800 25-JUN-05        
+        125 Nayer                                50       3200 16-JUL-05        
+        117 Tobias                               30       2800 24-JUL-05        
+        189 Dilly                                50       3600 13-AUG-05        
+        202 Fay                                  20       6000 17-AUG-05        
+        152 Hall                                 80       9000 20-AUG-05        
+        129 Bissot                               50       3300 20-AUG-05        
+        101 Kochhar                              90      17000 21-SEP-05        
+        110 Chen                                100       8200 28-SEP-05        
+
+EMPLOYEE_ID LAST_NAME                 DEPARTMENT_ID     SALARY HIRE_DATE        
+----------- ------------------------- ------------- ---------- ---------        
+        111 Sciarra                             100       7700 30-SEP-05        
+        123 Vollman                              50       6500 10-OCT-05        
+        138 Stiles                               50       3200 26-OCT-05        
+        130 Atkinson                             50       2800 30-OCT-05        
+        162 Vishney                              80      10500 11-NOV-05        
+        160 Doran                                80       7500 15-DEC-05        
+        116 Baida                                30       2900 24-DEC-05        
+        103 Hunold                               60       9000 03-JAN-06        
+        170 Fox                                  80       9600 24-JAN-06        
+        180 Taylor                               50       3200 24-JAN-06        
+        106 Pataballa                            60       4800 05-FEB-06        
+
+EMPLOYEE_ID LAST_NAME                 DEPARTMENT_ID     SALARY HIRE_DATE        
+----------- ------------------------- ------------- ---------- ---------        
+        139 Seo                                  50       2700 12-FEB-06        
+        181 Fleaur                               50       3100 23-FEB-06        
+        112 Urman                               100       7800 07-MAR-06        
+        143 Matos                                50       2600 15-MAR-06        
+        169 Bloom                                80      10000 23-MAR-06        
+        176 Taylor                               80       8600 24-MAR-06        
+        153 Olsen                                80       8000 30-MAR-06        
+        140 Patel                                50       2500 06-APR-06        
+        177 Livingston                           80       8400 23-APR-06        
+        196 Walsh                                50       3100 24-APR-06        
+        197 Feeney                               50       3000 23-MAY-06        
+
+EMPLOYEE_ID LAST_NAME                 DEPARTMENT_ID     SALARY HIRE_DATE        
+----------- ------------------------- ------------- ---------- ---------        
+        186 Dellinger                            50       3400 24-JUN-06        
+        194 McCain                               50       3200 01-JUL-06        
+        144 Vargas                               50       2500 09-JUL-06        
+        190 Gates                                50       2900 11-JUL-06        
+        134 Rogers                               50       2900 26-AUG-06        
+        126 Mikkilineni                          50       2700 28-SEP-06        
+        161 Sewall                               80       7000 03-NOV-06        
+        118 Himuro                               30       2600 15-NOV-06        
+        154 Cambrault                            80       7500 09-DEC-06        
+        127 Landry                               50       2400 14-JAN-07        
+        107 Lorentz                              60       4200 07-FEB-07        
+
+EMPLOYEE_ID LAST_NAME                 DEPARTMENT_ID     SALARY HIRE_DATE        
+----------- ------------------------- ------------- ---------- ---------        
+        187 Cabrio                               50       3000 07-FEB-07        
+        171 Smith                                80       7400 23-FEB-07        
+        195 Jones                                50       2800 17-MAR-07        
+        163 Greene                               80       9500 19-MAR-07        
+        172 Bates                                80       7300 24-MAR-07        
+        132 Olson                                50       2100 10-APR-07        
+        104 Ernst                                60       6000 21-MAY-07        
+        178 Grant                                         7000 24-MAY-07        
+        198 OConnell                             50       2600 21-JUN-07        
+        182 Sullivan                             50       2500 21-JUN-07        
+        119 Colmenares                           30       2500 10-AUG-07        
+
+EMPLOYEE_ID LAST_NAME                 DEPARTMENT_ID     SALARY HIRE_DATE        
+----------- ------------------------- ------------- ---------- ---------        
+        148 Cambrault                            80      11000 15-OCT-07        
+        124 Mourgos                              50       5800 16-NOV-07        
+        155 Tuvault                              80       7000 23-NOV-07        
+        113 Popp                                100       6900 07-DEC-07        
+        135 Gee                                  50       2400 12-DEC-07        
+        191 Perkins                              50       2500 19-DEC-07        
+        179 Johnson                              80       6200 04-JAN-08        
+        199 Grant                                50       2600 13-JAN-08        
+        164 Marvins                              80       7200 24-JAN-08        
+        149 Zlotkey                              80      10500 29-JAN-08        
+        183 Geoni                                50       2800 03-FEB-08        
+
+EMPLOYEE_ID LAST_NAME                 DEPARTMENT_ID     SALARY HIRE_DATE        
+----------- ------------------------- ------------- ---------- ---------        
+        136 Philtanker                           50       2200 06-FEB-08        
+        165 Lee                                  80       6800 23-FEB-08        
+        128 Markle                               50       2200 08-MAR-08        
+        166 Ande                                 80       6400 24-MAR-08        
+        167 Banda                                80       6200 21-APR-08        
+        173 Kumar                                80       6100 21-APR-08        
+
+83 rows selected.
+
+SQL> select employee_id, last_name, department_id, salary, hire_date
+  2  from   employees
+  3  where  to_char(hire_date, 'YYYY') = 2005
+  4  order  by 5;
+
+EMPLOYEE_ID LAST_NAME                 DEPARTMENT_ID     SALARY HIRE_DATE        
+----------- ------------------------- ------------- ---------- ---------        
+        146 Partners                             80      13500 05-JAN-05        
+        142 Davies                               50       3100 29-JAN-05        
+        150 Tucker                               80      10000 30-JAN-05        
+        131 Marlow                               50       2500 16-FEB-05        
+        185 Bull                                 50       4100 20-FEB-05        
+        193 Everett                              50       3900 03-MAR-05        
+        147 Errazuriz                            80      12000 10-MAR-05        
+        159 Smith                                80       8000 10-MAR-05        
+        168 Ozer                                 80      11500 11-MAR-05        
+        175 Hutton                               80       8800 19-MAR-05        
+        151 Bernstein                            80       9500 24-MAR-05        
+
+EMPLOYEE_ID LAST_NAME                 DEPARTMENT_ID     SALARY HIRE_DATE        
+----------- ------------------------- ------------- ---------- ---------        
+        121 Fripp                                50       8200 10-APR-05        
+        188 Chung                                50       3800 14-JUN-05        
+        105 Austin                               60       4800 25-JUN-05        
+        125 Nayer                                50       3200 16-JUL-05        
+        117 Tobias                               30       2800 24-JUL-05        
+        189 Dilly                                50       3600 13-AUG-05        
+        202 Fay                                  20       6000 17-AUG-05        
+        152 Hall                                 80       9000 20-AUG-05        
+        129 Bissot                               50       3300 20-AUG-05        
+        101 Kochhar                              90      17000 21-SEP-05        
+        110 Chen                                100       8200 28-SEP-05        
+
+EMPLOYEE_ID LAST_NAME                 DEPARTMENT_ID     SALARY HIRE_DATE        
+----------- ------------------------- ------------- ---------- ---------        
+        111 Sciarra                             100       7700 30-SEP-05        
+        123 Vollman                              50       6500 10-OCT-05        
+        138 Stiles                               50       3200 26-OCT-05        
+        130 Atkinson                             50       2800 30-OCT-05        
+        162 Vishney                              80      10500 11-NOV-05        
+        160 Doran                                80       7500 15-DEC-05        
+        116 Baida                                30       2900 24-DEC-05        
+
+29 rows selected.
+
+SQL> SELECT last_name, job_id, salary
+  2  FROM   employees
+  3  WHERE  salary =
+  4  (SELECT Max(salary)
+  5  FROM   employees);
+
+LAST_NAME                 JOB_ID         SALARY                                 
+------------------------- ---------- ----------                                 
+King                      AD_PRES         24000                                 
+
+SQL> SELECT department_id, sum(salary) total_salary
+  2  FROM   employees
+  3  GROUP  BY department_id
+  4  order  by 1;
+
+DEPARTMENT_ID TOTAL_SALARY                                                      
+------------- ------------                                                      
+           10         4400                                                      
+           20        19000                                                      
+           30        24900                                                      
+           40         6500                                                      
+           50       156400                                                      
+           60        28800                                                      
+           70        10000                                                      
+           80       304500                                                      
+           90        58000                                                      
+          100        51608                                                      
+          110        20308                                                      
+
+DEPARTMENT_ID TOTAL_SALARY                                                      
+------------- ------------                                                      
+                      7000                                                      
+
+12 rows selected.
+
+SQL> SELECT department_id, sum(salary) total_salary
+  2  FROM   employees
+  3  GROUP  BY department_id
+  4  having sum(salary) > 58000
+  5  order  by 1;
+
+DEPARTMENT_ID TOTAL_SALARY                                                      
+------------- ------------                                                      
+           50       156400                                                      
+           80       304500                                                      
+
+SQL> SELECT department_id, sum(salary) total_salary
+  2  FROM   employees
+  3  GROUP  BY department_id
+  4  having sum(salary) > (select sum(salary)
+  5  from   employees
+  6  where  department_id=90)
+  7  order  by 1;
+
+DEPARTMENT_ID TOTAL_SALARY                                                      
+------------- ------------                                                      
+           50       156400                                                      
+           80       304500                                                      
+
+SQL> SELECT department_id, sum(salary) total_salary
+  2  FROM   employees
+  3  GROUP  BY department_id
+  4  having sum(salary) > (select sum(salary)
+  5  from   employees
+  6  where  department_id=9999990)
+  7  order  by 1;
+
+no rows selected
+
+SQL> SELECT employee_id, last_name, job_id, salary
+  2  FROM   employees
+  3  WHERE  salary < ANY
+  4  (SELECT salary
+  5  FROM   employees
+  6  WHERE  job_id = 'IT_PROG')
+  7  AND  job_id <> 'IT_PROG'
+  8  order by salary desc;
+
+EMPLOYEE_ID LAST_NAME                 JOB_ID         SALARY                     
+----------- ------------------------- ---------- ----------                     
+        175 Hutton                    SA_REP           8800                     
+        176 Taylor                    SA_REP           8600                     
+        177 Livingston                SA_REP           8400                     
+        206 Gietz                     AC_ACCOUNT       8300                     
+        110 Chen                      FI_ACCOUNT       8200                     
+        121 Fripp                     ST_MAN           8200                     
+        159 Smith                     SA_REP           8000                     
+        153 Olsen                     SA_REP           8000                     
+        120 Weiss                     ST_MAN           8000                     
+        122 Kaufling                  ST_MAN           7900                     
+        112 Urman                     FI_ACCOUNT       7800                     
+
+EMPLOYEE_ID LAST_NAME                 JOB_ID         SALARY                     
+----------- ------------------------- ---------- ----------                     
+        111 Sciarra                   FI_ACCOUNT       7700                     
+        160 Doran                     SA_REP           7500                     
+        154 Cambrault                 SA_REP           7500                     
+        171 Smith                     SA_REP           7400                     
+        172 Bates                     SA_REP           7300                     
+        164 Marvins                   SA_REP           7200                     
+        155 Tuvault                   SA_REP           7000                     
+        161 Sewall                    SA_REP           7000                     
+        178 Grant                     SA_REP           7000                     
+        113 Popp                      FI_ACCOUNT       6900                     
+        165 Lee                       SA_REP           6800                     
+
+EMPLOYEE_ID LAST_NAME                 JOB_ID         SALARY                     
+----------- ------------------------- ---------- ----------                     
+        203 Mavris                    HR_REP           6500                     
+        123 Vollman                   ST_MAN           6500                     
+        166 Ande                      SA_REP           6400                     
+        167 Banda                     SA_REP           6200                     
+        179 Johnson                   SA_REP           6200                     
+        173 Kumar                     SA_REP           6100                     
+        202 Fay                       MK_REP           6000                     
+        124 Mourgos                   ST_MAN           5800                     
+        200 Whalen                    AD_ASST          4400                     
+        184 Sarchand                  SH_CLERK         4200                     
+        185 Bull                      SH_CLERK         4100                     
+
+EMPLOYEE_ID LAST_NAME                 JOB_ID         SALARY                     
+----------- ------------------------- ---------- ----------                     
+        192 Bell                      SH_CLERK         4000                     
+        193 Everett                   SH_CLERK         3900                     
+        188 Chung                     SH_CLERK         3800                     
+        137 Ladwig                    ST_CLERK         3600                     
+        189 Dilly                     SH_CLERK         3600                     
+        141 Rajs                      ST_CLERK         3500                     
+        186 Dellinger                 SH_CLERK         3400                     
+        129 Bissot                    ST_CLERK         3300                     
+        133 Mallin                    ST_CLERK         3300                     
+        180 Taylor                    SH_CLERK         3200                     
+        125 Nayer                     ST_CLERK         3200                     
+
+EMPLOYEE_ID LAST_NAME                 JOB_ID         SALARY                     
+----------- ------------------------- ---------- ----------                     
+        138 Stiles                    ST_CLERK         3200                     
+        194 McCain                    SH_CLERK         3200                     
+        115 Khoo                      PU_CLERK         3100                     
+        196 Walsh                     SH_CLERK         3100                     
+        181 Fleaur                    SH_CLERK         3100                     
+        142 Davies                    ST_CLERK         3100                     
+        197 Feeney                    SH_CLERK         3000                     
+        187 Cabrio                    SH_CLERK         3000                     
+        134 Rogers                    ST_CLERK         2900                     
+        116 Baida                     PU_CLERK         2900                     
+        190 Gates                     SH_CLERK         2900                     
+
+EMPLOYEE_ID LAST_NAME                 JOB_ID         SALARY                     
+----------- ------------------------- ---------- ----------                     
+        117 Tobias                    PU_CLERK         2800                     
+        183 Geoni                     SH_CLERK         2800                     
+        195 Jones                     SH_CLERK         2800                     
+        130 Atkinson                  ST_CLERK         2800                     
+        139 Seo                       ST_CLERK         2700                     
+        126 Mikkilineni               ST_CLERK         2700                     
+        118 Himuro                    PU_CLERK         2600                     
+        198 OConnell                  SH_CLERK         2600                     
+        199 Grant                     SH_CLERK         2600                     
+        143 Matos                     ST_CLERK         2600                     
+        191 Perkins                   SH_CLERK         2500                     
+
+EMPLOYEE_ID LAST_NAME                 JOB_ID         SALARY                     
+----------- ------------------------- ---------- ----------                     
+        182 Sullivan                  SH_CLERK         2500                     
+        140 Patel                     ST_CLERK         2500                     
+        131 Marlow                    ST_CLERK         2500                     
+        119 Colmenares                PU_CLERK         2500                     
+        144 Vargas                    ST_CLERK         2500                     
+        135 Gee                       ST_CLERK         2400                     
+        127 Landry                    ST_CLERK         2400                     
+        128 Markle                    ST_CLERK         2200                     
+        136 Philtanker                ST_CLERK         2200                     
+        132 Olson                     ST_CLERK         2100                     
+
+76 rows selected.
+
+SQL> SELECT employee_id, last_name, job_id, salary
+  2  FROM   employees
+  3  WHERE  salary > ANY
+  4  (SELECT salary
+  5  FROM   employees
+  6  WHERE  job_id = 'IT_PROG')
+  7  AND  job_id <> 'IT_PROG'
+  8  order by salary;
+
+EMPLOYEE_ID LAST_NAME                 JOB_ID         SALARY                     
+----------- ------------------------- ---------- ----------                     
+        200 Whalen                    AD_ASST          4400                     
+        124 Mourgos                   ST_MAN           5800                     
+        202 Fay                       MK_REP           6000                     
+        173 Kumar                     SA_REP           6100                     
+        179 Johnson                   SA_REP           6200                     
+        167 Banda                     SA_REP           6200                     
+        166 Ande                      SA_REP           6400                     
+        123 Vollman                   ST_MAN           6500                     
+        203 Mavris                    HR_REP           6500                     
+        165 Lee                       SA_REP           6800                     
+        113 Popp                      FI_ACCOUNT       6900                     
+
+EMPLOYEE_ID LAST_NAME                 JOB_ID         SALARY                     
+----------- ------------------------- ---------- ----------                     
+        178 Grant                     SA_REP           7000                     
+        155 Tuvault                   SA_REP           7000                     
+        161 Sewall                    SA_REP           7000                     
+        164 Marvins                   SA_REP           7200                     
+        172 Bates                     SA_REP           7300                     
+        171 Smith                     SA_REP           7400                     
+        154 Cambrault                 SA_REP           7500                     
+        160 Doran                     SA_REP           7500                     
+        111 Sciarra                   FI_ACCOUNT       7700                     
+        112 Urman                     FI_ACCOUNT       7800                     
+        122 Kaufling                  ST_MAN           7900                     
+
+EMPLOYEE_ID LAST_NAME                 JOB_ID         SALARY                     
+----------- ------------------------- ---------- ----------                     
+        120 Weiss                     ST_MAN           8000                     
+        159 Smith                     SA_REP           8000                     
+        153 Olsen                     SA_REP           8000                     
+        121 Fripp                     ST_MAN           8200                     
+        110 Chen                      FI_ACCOUNT       8200                     
+        206 Gietz                     AC_ACCOUNT       8300                     
+        177 Livingston                SA_REP           8400                     
+        176 Taylor                    SA_REP           8600                     
+        175 Hutton                    SA_REP           8800                     
+        152 Hall                      SA_REP           9000                     
+        109 Faviet                    FI_ACCOUNT       9000                     
+
+EMPLOYEE_ID LAST_NAME                 JOB_ID         SALARY                     
+----------- ------------------------- ---------- ----------                     
+        158 McEwen                    SA_REP           9000                     
+        163 Greene                    SA_REP           9500                     
+        151 Bernstein                 SA_REP           9500                     
+        157 Sully                     SA_REP           9500                     
+        170 Fox                       SA_REP           9600                     
+        204 Baer                      PR_REP          10000                     
+        169 Bloom                     SA_REP          10000                     
+        156 King                      SA_REP          10000                     
+        150 Tucker                    SA_REP          10000                     
+        162 Vishney                   SA_REP          10500                     
+        149 Zlotkey                   SA_MAN          10500                     
+
+EMPLOYEE_ID LAST_NAME                 JOB_ID         SALARY                     
+----------- ------------------------- ---------- ----------                     
+        114 Raphaely                  PU_MAN          11000                     
+        148 Cambrault                 SA_MAN          11000                     
+        174 Abel                      SA_REP          11000                     
+        168 Ozer                      SA_REP          11500                     
+        147 Errazuriz                 SA_MAN          12000                     
+        108 Greenberg                 FI_MGR          12008                     
+        205 Higgins                   AC_MGR          12008                     
+        201 Hartstein                 MK_MAN          13000                     
+        146 Partners                  SA_MAN          13500                     
+        145 Russell                   SA_MAN          14000                     
+        102 De Haan                   AD_VP           17000                     
+
+EMPLOYEE_ID LAST_NAME                 JOB_ID         SALARY                     
+----------- ------------------------- ---------- ----------                     
+        101 Kochhar                   AD_VP           17000                     
+        100 King                      AD_PRES         24000                     
+
+57 rows selected.
+
+SQL> SELECT employee_id, last_name, job_id, salary
+  2  FROM   employees
+  3  WHERE  salary > ALL
+  4  (SELECT salary
+  5  FROM   employees
+  6  WHERE  job_id = 'IT_PROG')
+  7  AND  job_id <> 'IT_PROG'
+  8  order by salary;
+
+EMPLOYEE_ID LAST_NAME                 JOB_ID         SALARY                     
+----------- ------------------------- ---------- ----------                     
+        163 Greene                    SA_REP           9500                     
+        151 Bernstein                 SA_REP           9500                     
+        157 Sully                     SA_REP           9500                     
+        170 Fox                       SA_REP           9600                     
+        150 Tucker                    SA_REP          10000                     
+        156 King                      SA_REP          10000                     
+        169 Bloom                     SA_REP          10000                     
+        204 Baer                      PR_REP          10000                     
+        162 Vishney                   SA_REP          10500                     
+        149 Zlotkey                   SA_MAN          10500                     
+        174 Abel                      SA_REP          11000                     
+
+EMPLOYEE_ID LAST_NAME                 JOB_ID         SALARY                     
+----------- ------------------------- ---------- ----------                     
+        114 Raphaely                  PU_MAN          11000                     
+        148 Cambrault                 SA_MAN          11000                     
+        168 Ozer                      SA_REP          11500                     
+        147 Errazuriz                 SA_MAN          12000                     
+        205 Higgins                   AC_MGR          12008                     
+        108 Greenberg                 FI_MGR          12008                     
+        201 Hartstein                 MK_MAN          13000                     
+        146 Partners                  SA_MAN          13500                     
+        145 Russell                   SA_MAN          14000                     
+        102 De Haan                   AD_VP           17000                     
+        101 Kochhar                   AD_VP           17000                     
+
+EMPLOYEE_ID LAST_NAME                 JOB_ID         SALARY                     
+----------- ------------------------- ---------- ----------                     
+        100 King                      AD_PRES         24000                     
+
+23 rows selected.
+
+SQL> SELECT employee_id, last_name, job_id, salary
+  2  FROM   employees
+  3  WHERE  salary < ALL
+  4  (SELECT salary
+  5  FROM   employees
+  6  WHERE  job_id = 'IT_PROG')
+  7  AND  job_id <> 'IT_PROG'
+  8  order by salary desc ;
+
+EMPLOYEE_ID LAST_NAME                 JOB_ID         SALARY                     
+----------- ------------------------- ---------- ----------                     
+        185 Bull                      SH_CLERK         4100                     
+        192 Bell                      SH_CLERK         4000                     
+        193 Everett                   SH_CLERK         3900                     
+        188 Chung                     SH_CLERK         3800                     
+        137 Ladwig                    ST_CLERK         3600                     
+        189 Dilly                     SH_CLERK         3600                     
+        141 Rajs                      ST_CLERK         3500                     
+        186 Dellinger                 SH_CLERK         3400                     
+        133 Mallin                    ST_CLERK         3300                     
+        129 Bissot                    ST_CLERK         3300                     
+        180 Taylor                    SH_CLERK         3200                     
+
+EMPLOYEE_ID LAST_NAME                 JOB_ID         SALARY                     
+----------- ------------------------- ---------- ----------                     
+        138 Stiles                    ST_CLERK         3200                     
+        125 Nayer                     ST_CLERK         3200                     
+        194 McCain                    SH_CLERK         3200                     
+        115 Khoo                      PU_CLERK         3100                     
+        196 Walsh                     SH_CLERK         3100                     
+        142 Davies                    ST_CLERK         3100                     
+        181 Fleaur                    SH_CLERK         3100                     
+        187 Cabrio                    SH_CLERK         3000                     
+        197 Feeney                    SH_CLERK         3000                     
+        116 Baida                     PU_CLERK         2900                     
+        190 Gates                     SH_CLERK         2900                     
+
+EMPLOYEE_ID LAST_NAME                 JOB_ID         SALARY                     
+----------- ------------------------- ---------- ----------                     
+        134 Rogers                    ST_CLERK         2900                     
+        183 Geoni                     SH_CLERK         2800                     
+        130 Atkinson                  ST_CLERK         2800                     
+        117 Tobias                    PU_CLERK         2800                     
+        195 Jones                     SH_CLERK         2800                     
+        126 Mikkilineni               ST_CLERK         2700                     
+        139 Seo                       ST_CLERK         2700                     
+        143 Matos                     ST_CLERK         2600                     
+        199 Grant                     SH_CLERK         2600                     
+        118 Himuro                    PU_CLERK         2600                     
+        198 OConnell                  SH_CLERK         2600                     
+
+EMPLOYEE_ID LAST_NAME                 JOB_ID         SALARY                     
+----------- ------------------------- ---------- ----------                     
+        140 Patel                     ST_CLERK         2500                     
+        131 Marlow                    ST_CLERK         2500                     
+        119 Colmenares                PU_CLERK         2500                     
+        191 Perkins                   SH_CLERK         2500                     
+        182 Sullivan                  SH_CLERK         2500                     
+        144 Vargas                    ST_CLERK         2500                     
+        127 Landry                    ST_CLERK         2400                     
+        135 Gee                       ST_CLERK         2400                     
+        128 Markle                    ST_CLERK         2200                     
+        136 Philtanker                ST_CLERK         2200                     
+        132 Olson                     ST_CLERK         2100                     
+
+44 rows selected.
+
+SQL> select EMPLOYEE_ID, JOB_ID, DEPARTMENT_ID
+  2  from   employees
+  3  union
+  4  select EMPLOYEE_ID, JOB_ID, DEPARTMENT_ID
+  5  from   job_history
+  6  order  by EMPLOYEE_ID;
+
+EMPLOYEE_ID JOB_ID     DEPARTMENT_ID                                            
+----------- ---------- -------------                                            
+        100 AD_PRES               90                                            
+        101 AC_ACCOUNT           110                                            
+        101 AC_MGR               110                                            
+        101 AD_VP                 90                                            
+        102 AD_VP                 90                                            
+        102 IT_PROG               60                                            
+        103 IT_PROG               60                                            
+        104 IT_PROG               60                                            
+        105 IT_PROG               60                                            
+        106 IT_PROG               60                                            
+        107 IT_PROG               60                                            
+
+EMPLOYEE_ID JOB_ID     DEPARTMENT_ID                                            
+----------- ---------- -------------                                            
+        108 FI_MGR               100                                            
+        109 FI_ACCOUNT           100                                            
+        110 FI_ACCOUNT           100                                            
+        111 FI_ACCOUNT           100                                            
+        112 FI_ACCOUNT           100                                            
+        113 FI_ACCOUNT           100                                            
+        114 PU_MAN                30                                            
+        114 ST_CLERK              50                                            
+        115 PU_CLERK              30                                            
+        116 PU_CLERK              30                                            
+        117 PU_CLERK              30                                            
+
+EMPLOYEE_ID JOB_ID     DEPARTMENT_ID                                            
+----------- ---------- -------------                                            
+        118 PU_CLERK              30                                            
+        119 PU_CLERK              30                                            
+        120 ST_MAN                50                                            
+        121 ST_MAN                50                                            
+        122 ST_CLERK              50                                            
+        122 ST_MAN                50                                            
+        123 ST_MAN                50                                            
+        124 ST_MAN                50                                            
+        125 ST_CLERK              50                                            
+        126 ST_CLERK              50                                            
+        127 ST_CLERK              50                                            
+
+EMPLOYEE_ID JOB_ID     DEPARTMENT_ID                                            
+----------- ---------- -------------                                            
+        128 ST_CLERK              50                                            
+        129 ST_CLERK              50                                            
+        130 ST_CLERK              50                                            
+        131 ST_CLERK              50                                            
+        132 ST_CLERK              50                                            
+        133 ST_CLERK              50                                            
+        134 ST_CLERK              50                                            
+        135 ST_CLERK              50                                            
+        136 ST_CLERK              50                                            
+        137 ST_CLERK              50                                            
+        138 ST_CLERK              50                                            
+
+EMPLOYEE_ID JOB_ID     DEPARTMENT_ID                                            
+----------- ---------- -------------                                            
+        139 ST_CLERK              50                                            
+        140 ST_CLERK              50                                            
+        141 ST_CLERK              50                                            
+        142 ST_CLERK              50                                            
+        143 ST_CLERK              50                                            
+        144 ST_CLERK              50                                            
+        145 SA_MAN                80                                            
+        146 SA_MAN                80                                            
+        147 SA_MAN                80                                            
+        148 SA_MAN                80                                            
+        149 SA_MAN                80                                            
+
+EMPLOYEE_ID JOB_ID     DEPARTMENT_ID                                            
+----------- ---------- -------------                                            
+        150 SA_REP                80                                            
+        151 SA_REP                80                                            
+        152 SA_REP                80                                            
+        153 SA_REP                80                                            
+        154 SA_REP                80                                            
+        155 SA_REP                80                                            
+        156 SA_REP                80                                            
+        157 SA_REP                80                                            
+        158 SA_REP                80                                            
+        159 SA_REP                80                                            
+        160 SA_REP                80                                            
+
+EMPLOYEE_ID JOB_ID     DEPARTMENT_ID                                            
+----------- ---------- -------------                                            
+        161 SA_REP                80                                            
+        162 SA_REP                80                                            
+        163 SA_REP                80                                            
+        164 SA_REP                80                                            
+        165 SA_REP                80                                            
+        166 SA_REP                80                                            
+        167 SA_REP                80                                            
+        168 SA_REP                80                                            
+        169 SA_REP                80                                            
+        170 SA_REP                80                                            
+        171 SA_REP                80                                            
+
+EMPLOYEE_ID JOB_ID     DEPARTMENT_ID                                            
+----------- ---------- -------------                                            
+        172 SA_REP                80                                            
+        173 SA_REP                80                                            
+        174 SA_REP                80                                            
+        175 SA_REP                80                                            
+        176 SA_MAN                80                                            
+        176 SA_REP                80                                            
+        177 SA_REP                80                                            
+        178 SA_REP                                                              
+        179 SA_REP                80                                            
+        180 SH_CLERK              50                                            
+        181 SH_CLERK              50                                            
+
+EMPLOYEE_ID JOB_ID     DEPARTMENT_ID                                            
+----------- ---------- -------------                                            
+        182 SH_CLERK              50                                            
+        183 SH_CLERK              50                                            
+        184 SH_CLERK              50                                            
+        185 SH_CLERK              50                                            
+        186 SH_CLERK              50                                            
+        187 SH_CLERK              50                                            
+        188 SH_CLERK              50                                            
+        189 SH_CLERK              50                                            
+        190 SH_CLERK              50                                            
+        191 SH_CLERK              50                                            
+        192 SH_CLERK              50                                            
+
+EMPLOYEE_ID JOB_ID     DEPARTMENT_ID                                            
+----------- ---------- -------------                                            
+        193 SH_CLERK              50                                            
+        194 SH_CLERK              50                                            
+        195 SH_CLERK              50                                            
+        196 SH_CLERK              50                                            
+        197 SH_CLERK              50                                            
+        198 SH_CLERK              50                                            
+        199 SH_CLERK              50                                            
+        200 AC_ACCOUNT            90                                            
+        200 AD_ASST               10                                            
+        200 AD_ASST               90                                            
+        201 MK_MAN                20                                            
+
+EMPLOYEE_ID JOB_ID     DEPARTMENT_ID                                            
+----------- ---------- -------------                                            
+        201 MK_REP                20                                            
+        202 MK_REP                20                                            
+        203 HR_REP                40                                            
+        204 PR_REP                70                                            
+        205 AC_MGR               110                                            
+        206 AC_ACCOUNT           110                                            
+
+116 rows selected.
+
+SQL> select EMPLOYEE_ID, JOB_ID, DEPARTMENT_ID
+  2  from   employees
+  3  union all
+  4  select EMPLOYEE_ID, JOB_ID, DEPARTMENT_ID
+  5  from   job_history
+  6  order  by EMPLOYEE_ID;
+
+EMPLOYEE_ID JOB_ID     DEPARTMENT_ID                                            
+----------- ---------- -------------                                            
+        100 AD_PRES               90                                            
+        101 AD_VP                 90                                            
+        101 AC_ACCOUNT           110                                            
+        101 AC_MGR               110                                            
+        102 IT_PROG               60                                            
+        102 AD_VP                 90                                            
+        103 IT_PROG               60                                            
+        104 IT_PROG               60                                            
+        105 IT_PROG               60                                            
+        106 IT_PROG               60                                            
+        107 IT_PROG               60                                            
+
+EMPLOYEE_ID JOB_ID     DEPARTMENT_ID                                            
+----------- ---------- -------------                                            
+        108 FI_MGR               100                                            
+        109 FI_ACCOUNT           100                                            
+        110 FI_ACCOUNT           100                                            
+        111 FI_ACCOUNT           100                                            
+        112 FI_ACCOUNT           100                                            
+        113 FI_ACCOUNT           100                                            
+        114 PU_MAN                30                                            
+        114 ST_CLERK              50                                            
+        115 PU_CLERK              30                                            
+        116 PU_CLERK              30                                            
+        117 PU_CLERK              30                                            
+
+EMPLOYEE_ID JOB_ID     DEPARTMENT_ID                                            
+----------- ---------- -------------                                            
+        118 PU_CLERK              30                                            
+        119 PU_CLERK              30                                            
+        120 ST_MAN                50                                            
+        121 ST_MAN                50                                            
+        122 ST_MAN                50                                            
+        122 ST_CLERK              50                                            
+        123 ST_MAN                50                                            
+        124 ST_MAN                50                                            
+        125 ST_CLERK              50                                            
+        126 ST_CLERK              50                                            
+        127 ST_CLERK              50                                            
+
+EMPLOYEE_ID JOB_ID     DEPARTMENT_ID                                            
+----------- ---------- -------------                                            
+        128 ST_CLERK              50                                            
+        129 ST_CLERK              50                                            
+        130 ST_CLERK              50                                            
+        131 ST_CLERK              50                                            
+        132 ST_CLERK              50                                            
+        133 ST_CLERK              50                                            
+        134 ST_CLERK              50                                            
+        135 ST_CLERK              50                                            
+        136 ST_CLERK              50                                            
+        137 ST_CLERK              50                                            
+        138 ST_CLERK              50                                            
+
+EMPLOYEE_ID JOB_ID     DEPARTMENT_ID                                            
+----------- ---------- -------------                                            
+        139 ST_CLERK              50                                            
+        140 ST_CLERK              50                                            
+        141 ST_CLERK              50                                            
+        142 ST_CLERK              50                                            
+        143 ST_CLERK              50                                            
+        144 ST_CLERK              50                                            
+        145 SA_MAN                80                                            
+        146 SA_MAN                80                                            
+        147 SA_MAN                80                                            
+        148 SA_MAN                80                                            
+        149 SA_MAN                80                                            
+
+EMPLOYEE_ID JOB_ID     DEPARTMENT_ID                                            
+----------- ---------- -------------                                            
+        150 SA_REP                80                                            
+        151 SA_REP                80                                            
+        152 SA_REP                80                                            
+        153 SA_REP                80                                            
+        154 SA_REP                80                                            
+        155 SA_REP                80                                            
+        156 SA_REP                80                                            
+        157 SA_REP                80                                            
+        158 SA_REP                80                                            
+        159 SA_REP                80                                            
+        160 SA_REP                80                                            
+
+EMPLOYEE_ID JOB_ID     DEPARTMENT_ID                                            
+----------- ---------- -------------                                            
+        161 SA_REP                80                                            
+        162 SA_REP                80                                            
+        163 SA_REP                80                                            
+        164 SA_REP                80                                            
+        165 SA_REP                80                                            
+        166 SA_REP                80                                            
+        167 SA_REP                80                                            
+        168 SA_REP                80                                            
+        169 SA_REP                80                                            
+        170 SA_REP                80                                            
+        171 SA_REP                80                                            
+
+EMPLOYEE_ID JOB_ID     DEPARTMENT_ID                                            
+----------- ---------- -------------                                            
+        172 SA_REP                80                                            
+        173 SA_REP                80                                            
+        174 SA_REP                80                                            
+        175 SA_REP                80                                            
+        176 SA_REP                80                                            
+        176 SA_MAN                80                                            
+        176 SA_REP                80                                            
+        177 SA_REP                80                                            
+        178 SA_REP                                                              
+        179 SA_REP                80                                            
+        180 SH_CLERK              50                                            
+
+EMPLOYEE_ID JOB_ID     DEPARTMENT_ID                                            
+----------- ---------- -------------                                            
+        181 SH_CLERK              50                                            
+        182 SH_CLERK              50                                            
+        183 SH_CLERK              50                                            
+        184 SH_CLERK              50                                            
+        185 SH_CLERK              50                                            
+        186 SH_CLERK              50                                            
+        187 SH_CLERK              50                                            
+        188 SH_CLERK              50                                            
+        189 SH_CLERK              50                                            
+        190 SH_CLERK              50                                            
+        191 SH_CLERK              50                                            
+
+EMPLOYEE_ID JOB_ID     DEPARTMENT_ID                                            
+----------- ---------- -------------                                            
+        192 SH_CLERK              50                                            
+        193 SH_CLERK              50                                            
+        194 SH_CLERK              50                                            
+        195 SH_CLERK              50                                            
+        196 SH_CLERK              50                                            
+        197 SH_CLERK              50                                            
+        198 SH_CLERK              50                                            
+        199 SH_CLERK              50                                            
+        200 AD_ASST               10                                            
+        200 AD_ASST               90                                            
+        200 AC_ACCOUNT            90                                            
+
+EMPLOYEE_ID JOB_ID     DEPARTMENT_ID                                            
+----------- ---------- -------------                                            
+        201 MK_MAN                20                                            
+        201 MK_REP                20                                            
+        202 MK_REP                20                                            
+        203 HR_REP                40                                            
+        204 PR_REP                70                                            
+        205 AC_MGR               110                                            
+        206 AC_ACCOUNT           110                                            
+
+117 rows selected.
+
+SQL> select EMPLOYEE_ID, JOB_ID, DEPARTMENT_ID
+  2  from   employees
+  3  intersect
+  4  select EMPLOYEE_ID, JOB_ID, DEPARTMENT_ID
+  5  from   job_history
+  6  order  by EMPLOYEE_ID;
+
+EMPLOYEE_ID JOB_ID     DEPARTMENT_ID                                            
+----------- ---------- -------------                                            
+        176 SA_REP                80                                            
+
+SQL> select EMPLOYEE_ID, JOB_ID, DEPARTMENT_ID
+  2  from   employees
+  3  minus
+  4  select EMPLOYEE_ID, JOB_ID, DEPARTMENT_ID
+  5  from   job_history
+  6  order  by EMPLOYEE_ID;
+
+EMPLOYEE_ID JOB_ID     DEPARTMENT_ID                                            
+----------- ---------- -------------                                            
+        100 AD_PRES               90                                            
+        101 AD_VP                 90                                            
+        102 AD_VP                 90                                            
+        103 IT_PROG               60                                            
+        104 IT_PROG               60                                            
+        105 IT_PROG               60                                            
+        106 IT_PROG               60                                            
+        107 IT_PROG               60                                            
+        108 FI_MGR               100                                            
+        109 FI_ACCOUNT           100                                            
+        110 FI_ACCOUNT           100                                            
+
+EMPLOYEE_ID JOB_ID     DEPARTMENT_ID                                            
+----------- ---------- -------------                                            
+        111 FI_ACCOUNT           100                                            
+        112 FI_ACCOUNT           100                                            
+        113 FI_ACCOUNT           100                                            
+        114 PU_MAN                30                                            
+        115 PU_CLERK              30                                            
+        116 PU_CLERK              30                                            
+        117 PU_CLERK              30                                            
+        118 PU_CLERK              30                                            
+        119 PU_CLERK              30                                            
+        120 ST_MAN                50                                            
+        121 ST_MAN                50                                            
+
+EMPLOYEE_ID JOB_ID     DEPARTMENT_ID                                            
+----------- ---------- -------------                                            
+        122 ST_MAN                50                                            
+        123 ST_MAN                50                                            
+        124 ST_MAN                50                                            
+        125 ST_CLERK              50                                            
+        126 ST_CLERK              50                                            
+        127 ST_CLERK              50                                            
+        128 ST_CLERK              50                                            
+        129 ST_CLERK              50                                            
+        130 ST_CLERK              50                                            
+        131 ST_CLERK              50                                            
+        132 ST_CLERK              50                                            
+
+EMPLOYEE_ID JOB_ID     DEPARTMENT_ID                                            
+----------- ---------- -------------                                            
+        133 ST_CLERK              50                                            
+        134 ST_CLERK              50                                            
+        135 ST_CLERK              50                                            
+        136 ST_CLERK              50                                            
+        137 ST_CLERK              50                                            
+        138 ST_CLERK              50                                            
+        139 ST_CLERK              50                                            
+        140 ST_CLERK              50                                            
+        141 ST_CLERK              50                                            
+        142 ST_CLERK              50                                            
+        143 ST_CLERK              50                                            
+
+EMPLOYEE_ID JOB_ID     DEPARTMENT_ID                                            
+----------- ---------- -------------                                            
+        144 ST_CLERK              50                                            
+        145 SA_MAN                80                                            
+        146 SA_MAN                80                                            
+        147 SA_MAN                80                                            
+        148 SA_MAN                80                                            
+        149 SA_MAN                80                                            
+        150 SA_REP                80                                            
+        151 SA_REP                80                                            
+        152 SA_REP                80                                            
+        153 SA_REP                80                                            
+        154 SA_REP                80                                            
+
+EMPLOYEE_ID JOB_ID     DEPARTMENT_ID                                            
+----------- ---------- -------------                                            
+        155 SA_REP                80                                            
+        156 SA_REP                80                                            
+        157 SA_REP                80                                            
+        158 SA_REP                80                                            
+        159 SA_REP                80                                            
+        160 SA_REP                80                                            
+        161 SA_REP                80                                            
+        162 SA_REP                80                                            
+        163 SA_REP                80                                            
+        164 SA_REP                80                                            
+        165 SA_REP                80                                            
+
+EMPLOYEE_ID JOB_ID     DEPARTMENT_ID                                            
+----------- ---------- -------------                                            
+        166 SA_REP                80                                            
+        167 SA_REP                80                                            
+        168 SA_REP                80                                            
+        169 SA_REP                80                                            
+        170 SA_REP                80                                            
+        171 SA_REP                80                                            
+        172 SA_REP                80                                            
+        173 SA_REP                80                                            
+        174 SA_REP                80                                            
+        175 SA_REP                80                                            
+        177 SA_REP                80                                            
+
+EMPLOYEE_ID JOB_ID     DEPARTMENT_ID                                            
+----------- ---------- -------------                                            
+        178 SA_REP                                                              
+        179 SA_REP                80                                            
+        180 SH_CLERK              50                                            
+        181 SH_CLERK              50                                            
+        182 SH_CLERK              50                                            
+        183 SH_CLERK              50                                            
+        184 SH_CLERK              50                                            
+        185 SH_CLERK              50                                            
+        186 SH_CLERK              50                                            
+        187 SH_CLERK              50                                            
+        188 SH_CLERK              50                                            
+
+EMPLOYEE_ID JOB_ID     DEPARTMENT_ID                                            
+----------- ---------- -------------                                            
+        189 SH_CLERK              50                                            
+        190 SH_CLERK              50                                            
+        191 SH_CLERK              50                                            
+        192 SH_CLERK              50                                            
+        193 SH_CLERK              50                                            
+        194 SH_CLERK              50                                            
+        195 SH_CLERK              50                                            
+        196 SH_CLERK              50                                            
+        197 SH_CLERK              50                                            
+        198 SH_CLERK              50                                            
+        199 SH_CLERK              50                                            
+
+EMPLOYEE_ID JOB_ID     DEPARTMENT_ID                                            
+----------- ---------- -------------                                            
+        200 AD_ASST               10                                            
+        201 MK_MAN                20                                            
+        202 MK_REP                20                                            
+        203 HR_REP                40                                            
+        204 PR_REP                70                                            
+        205 AC_MGR               110                                            
+        206 AC_ACCOUNT           110                                            
+
+106 rows selected.
+
+SQL> select EMPLOYEE_ID, JOB_ID, DEPARTMENT_ID,
+  2  from   employees
+  3  minus
+  4  select EMPLOYEE_ID, JOB_ID, DEPARTMENT_ID, start_date
+  5  from   job_history
+  6  order  by EMPLOYEE_ID;
+from   employees
+*
+ERROR at line 2:
+ORA-00936: missing expression 
+
+
+SQL> select EMPLOYEE_ID, JOB_ID, DEPARTMENT_ID, salary
+  2  from   employees
+  3  minus
+  4  select EMPLOYEE_ID, JOB_ID, DEPARTMENT_ID, 0
+  5  from   job_history
+  6  order  by EMPLOYEE_ID;
+
+EMPLOYEE_ID JOB_ID     DEPARTMENT_ID     SALARY                                 
+----------- ---------- ------------- ----------                                 
+        100 AD_PRES               90      24000                                 
+        101 AD_VP                 90      17000                                 
+        102 AD_VP                 90      17000                                 
+        103 IT_PROG               60       9000                                 
+        104 IT_PROG               60       6000                                 
+        105 IT_PROG               60       4800                                 
+        106 IT_PROG               60       4800                                 
+        107 IT_PROG               60       4200                                 
+        108 FI_MGR               100      12008                                 
+        109 FI_ACCOUNT           100       9000                                 
+        110 FI_ACCOUNT           100       8200                                 
+
+EMPLOYEE_ID JOB_ID     DEPARTMENT_ID     SALARY                                 
+----------- ---------- ------------- ----------                                 
+        111 FI_ACCOUNT           100       7700                                 
+        112 FI_ACCOUNT           100       7800                                 
+        113 FI_ACCOUNT           100       6900                                 
+        114 PU_MAN                30      11000                                 
+        115 PU_CLERK              30       3100                                 
+        116 PU_CLERK              30       2900                                 
+        117 PU_CLERK              30       2800                                 
+        118 PU_CLERK              30       2600                                 
+        119 PU_CLERK              30       2500                                 
+        120 ST_MAN                50       8000                                 
+        121 ST_MAN                50       8200                                 
+
+EMPLOYEE_ID JOB_ID     DEPARTMENT_ID     SALARY                                 
+----------- ---------- ------------- ----------                                 
+        122 ST_MAN                50       7900                                 
+        123 ST_MAN                50       6500                                 
+        124 ST_MAN                50       5800                                 
+        125 ST_CLERK              50       3200                                 
+        126 ST_CLERK              50       2700                                 
+        127 ST_CLERK              50       2400                                 
+        128 ST_CLERK              50       2200                                 
+        129 ST_CLERK              50       3300                                 
+        130 ST_CLERK              50       2800                                 
+        131 ST_CLERK              50       2500                                 
+        132 ST_CLERK              50       2100                                 
+
+EMPLOYEE_ID JOB_ID     DEPARTMENT_ID     SALARY                                 
+----------- ---------- ------------- ----------                                 
+        133 ST_CLERK              50       3300                                 
+        134 ST_CLERK              50       2900                                 
+        135 ST_CLERK              50       2400                                 
+        136 ST_CLERK              50       2200                                 
+        137 ST_CLERK              50       3600                                 
+        138 ST_CLERK              50       3200                                 
+        139 ST_CLERK              50       2700                                 
+        140 ST_CLERK              50       2500                                 
+        141 ST_CLERK              50       3500                                 
+        142 ST_CLERK              50       3100                                 
+        143 ST_CLERK              50       2600                                 
+
+EMPLOYEE_ID JOB_ID     DEPARTMENT_ID     SALARY                                 
+----------- ---------- ------------- ----------                                 
+        144 ST_CLERK              50       2500                                 
+        145 SA_MAN                80      14000                                 
+        146 SA_MAN                80      13500                                 
+        147 SA_MAN                80      12000                                 
+        148 SA_MAN                80      11000                                 
+        149 SA_MAN                80      10500                                 
+        150 SA_REP                80      10000                                 
+        151 SA_REP                80       9500                                 
+        152 SA_REP                80       9000                                 
+        153 SA_REP                80       8000                                 
+        154 SA_REP                80       7500                                 
+
+EMPLOYEE_ID JOB_ID     DEPARTMENT_ID     SALARY                                 
+----------- ---------- ------------- ----------                                 
+        155 SA_REP                80       7000                                 
+        156 SA_REP                80      10000                                 
+        157 SA_REP                80       9500                                 
+        158 SA_REP                80       9000                                 
+        159 SA_REP                80       8000                                 
+        160 SA_REP                80       7500                                 
+        161 SA_REP                80       7000                                 
+        162 SA_REP                80      10500                                 
+        163 SA_REP                80       9500                                 
+        164 SA_REP                80       7200                                 
+        165 SA_REP                80       6800                                 
+
+EMPLOYEE_ID JOB_ID     DEPARTMENT_ID     SALARY                                 
+----------- ---------- ------------- ----------                                 
+        166 SA_REP                80       6400                                 
+        167 SA_REP                80       6200                                 
+        168 SA_REP                80      11500                                 
+        169 SA_REP                80      10000                                 
+        170 SA_REP                80       9600                                 
+        171 SA_REP                80       7400                                 
+        172 SA_REP                80       7300                                 
+        173 SA_REP                80       6100                                 
+        174 SA_REP                80      11000                                 
+        175 SA_REP                80       8800                                 
+        176 SA_REP                80       8600                                 
+
+EMPLOYEE_ID JOB_ID     DEPARTMENT_ID     SALARY                                 
+----------- ---------- ------------- ----------                                 
+        177 SA_REP                80       8400                                 
+        178 SA_REP                         7000                                 
+        179 SA_REP                80       6200                                 
+        180 SH_CLERK              50       3200                                 
+        181 SH_CLERK              50       3100                                 
+        182 SH_CLERK              50       2500                                 
+        183 SH_CLERK              50       2800                                 
+        184 SH_CLERK              50       4200                                 
+        185 SH_CLERK              50       4100                                 
+        186 SH_CLERK              50       3400                                 
+        187 SH_CLERK              50       3000                                 
+
+EMPLOYEE_ID JOB_ID     DEPARTMENT_ID     SALARY                                 
+----------- ---------- ------------- ----------                                 
+        188 SH_CLERK              50       3800                                 
+        189 SH_CLERK              50       3600                                 
+        190 SH_CLERK              50       2900                                 
+        191 SH_CLERK              50       2500                                 
+        192 SH_CLERK              50       4000                                 
+        193 SH_CLERK              50       3900                                 
+        194 SH_CLERK              50       3200                                 
+        195 SH_CLERK              50       2800                                 
+        196 SH_CLERK              50       3100                                 
+        197 SH_CLERK              50       3000                                 
+        198 SH_CLERK              50       2600                                 
+
+EMPLOYEE_ID JOB_ID     DEPARTMENT_ID     SALARY                                 
+----------- ---------- ------------- ----------                                 
+        199 SH_CLERK              50       2600                                 
+        200 AD_ASST               10       4400                                 
+        201 MK_MAN                20      13000                                 
+        202 MK_REP                20       6000                                 
+        203 HR_REP                40       6500                                 
+        204 PR_REP                70      10000                                 
+        205 AC_MGR               110      12008                                 
+        206 AC_ACCOUNT           110       8300                                 
+
+107 rows selected.
+
+SQL> drop table emp cascade;
+drop table emp cascade
+                     *
+ERROR at line 1:
+ORA-00905: missing keyword 
+
+
+SQL>  create table emp
+  2  (
+  3  id         number,
+  4  name       varchar2(25),
+  5  jdate      date
+  6  );
+ create table emp
+              *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object 
+
+
+SQL> drop table emp;
+
+Table dropped.
+
+SQL>  create table emp
+  2  (
+  3  id         number,
+  4  name       varchar2(25),
+  5  jdate      date
+  6  );
+
+Table created.
+
+SQL> desc emp
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ID                                                 NUMBER
+ NAME                                               VARCHAR2(25)
+ JDATE                                              DATE
+
+SQL> insert into emp(id, name, jdate)
+  2  values(1, 'Abc-1', '09-Oct-26');
+
+1 row created.
+
+SQL> insert into emp
+  2  values(2, 'Abc-2', '02-Oct-26');
+
+1 row created.
+
+SQL> insert into emp(id)
+  2  values(3);
+
+1 row created.
+
+SQL> insert into emp(id, name, jdate)
+  2  values(4, null, null);
+
+1 row created.
+
+SQL> insert into emp(id, name, jdate)
+  2  values(5, user, sysdate);
+
+1 row created.
+
+SQL> insert into emp(id, name, jdate)
+  2  values(&id, &name, &jdate);
+Enter value for id: insert into emp(id, name, jdate) 
+Enter value for name: values(&id, '&name', '&jdate'); 
+Enter value for jdate: sysdate
+old   2: values(&id, &name, &jdate)
+new   2: values(insert into emp(id, name, jdate) , values(&id, '&name', '&jdate'); , sysdate)
+SP2-0552: Bind variable "ID" not declared.
+SQL> select employee_id, first_name||' '||last_name, hire_date
+  2  from   employees
+  3  where  department_id = 90;
+
+EMPLOYEE_ID FIRST_NAME||''||LAST_NAME                      HIRE_DATE            
+----------- ---------------------------------------------- ---------            
+        100 Steven King                                    17-JUN-03            
+        101 Neena Kochhar                                  21-SEP-05            
+        102 Lex De Haan                                    13-JAN-01            
+
+SQL> insert into emp(id, name, jdate)
+  2  select employee_id, first_name||' '||last_name, hire_date
+  3  from   employees
+  4  where  department_id = 90;
+
+3 rows created.
+
+SQL> update emp
+  2  set    name = 'Kamal Khan'
+  3  where  id = 2;
+
+1 row updated.
+
+SQL> update emp
+  2  set    name = 'Lalon Fokir', jdate = '15-Aug-75'
+  3  where  id = 4;
+
+1 row updated.
+
+SQL> update emp
+  2  set    name = null
+  3  where  id = 7;
+
+0 rows updated.
+
+SQL> update emp
+  2  set    name = (select first_name||' '||last_name
+  3  from   employees
+  4  where  employee_id = 150) ,
+  5  jdate = (select hire_date from  employees where  employee_id = 160)
+  6  where  id = 3;
+
+1 row updated.
+
+SQL> update emp
+  2  set    (name, jdate) = (select first_name||' '||last_name, hire_date
+  3  from   employees
+  4  where  employee_id = 170)
+  5  where  id = 1;
+
+1 row updated.
+
+SQL> select * from emp;
+
+        ID NAME                      JDATE                                      
+---------- ------------------------- ---------                                  
+         1 Tayler Fox                24-JAN-06                                  
+         2 Kamal Khan                02-OCT-26                                  
+         3 Peter Tucker              15-DEC-05                                  
+         4 Lalon Fokir               15-AUG-75                                  
+         5 HR                        13-NOV-26                                  
+       100 Steven King               17-JUN-03                                  
+       101 Neena Kochhar             21-SEP-05                                  
+       102 Lex De Haan               13-JAN-01                                  
+
+8 rows selected.
+
+SQL> delete from emp
+  2  where  id = 4;
+
+1 row deleted.
+
+SQL> delete from emp
+  2  where  id in (select employee_id from employees);
+
+3 rows deleted.
+
+SQL> select * from emp;
+
+        ID NAME                      JDATE                                      
+---------- ------------------------- ---------                                  
+         1 Tayler Fox                24-JAN-06                                  
+         2 Kamal Khan                02-OCT-26                                  
+         3 Peter Tucker              15-DEC-05                                  
+         5 HR                        13-NOV-26                                  
+
+SQL> 
+SQL> create table emp2
+  2  as
+  3  select * from emp;
+
+Table created.
+
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> select * from emp;
+
+        ID NAME                      JDATE                                      
+---------- ------------------------- ---------                                  
+         1 Tayler Fox                24-JAN-06                                  
+         2 Kamal Khan                02-OCT-26                                  
+         3 Peter Tucker              15-DEC-05                                  
+         5 HR                        13-NOV-26                                  
+
+SQL> delete from emp where id = 4;
+
+0 rows deleted.
+
+SQL> delete from emp where id = 3;
+
+1 row deleted.
+
+SQL> delete from emp where id = 3;
+
+0 rows deleted.
+
+SQL> delete from emp where id = 2;
+
+1 row deleted.
+
+SQL> savepoint a2;
+
+Savepoint created.
+
+SQL> rollback to savepoint a1;
+rollback to savepoint a1
+*
+ERROR at line 1:
+ORA-01086: savepoint 'A1' never established in this session or is invalid 
+
+
+SQL> rollback to savepoint a2;
+
+Rollback complete.
+
+SQL> spool off
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ALL COMMANDS
+
+
+
+select salary 
+from   employees 
+where  employee_id = 120 ; 
+
+select employee_id, last_name, salary 
+from   employees 
+where  salary > 8000 ; 
+
+select employee_id, last_name, salary 
+from   employees 
+where  salary > 8000  
+order  by 3; 
+
+select employee_id, last_name, salary 
+from   employees 
+where  salary > (select salary 
+from   employees 
+where  employee_id = 120)  
+order  by 3; 
+
+select employee_id, last_name, salary 
+from   employees 
+where  salary in (select salary 
+                  from   employees 
+                  where  department_id = 90); 
+
+
+SELECT last_name, job_id, salary 
+FROM   employees 
+WHERE job_id = 
+(SELECT job_id 
+FROM employees 
+WHERE last_name = 'Taylor') 
+AND salary > 
+(SELECT salary 
+FROM employees 
+WHERE last_name = 'Taylor'); 
+
+select employee_id, last_name, department_id, salary, hire_date 
+from   employees 
+where  salary > (select salary 
+from   employees 
+where  employee_id = 120) 
+and    department_id < (select department_id  
+from   employees 
+where  last_name='Hall') 
+order  by 3; 
+
+select employee_id, last_name, department_id, salary, hire_date 
+from   employees 
+where  salary > (select salary 
+from   employees 
+where  employee_id = 120) 
+and    department_id < (select department_id  
+from   employees 
+where  last_name='Hall') 
+and    hire_date > (select hire_date 
+from   employees 
+where  employee_id = 201) 
+order  by 3; 
+
+select employee_id, last_name, department_id, salary, hire_date 
+from   employees 
+where  salary > (select salary 
+from   employees 
+where  employee_id = 120) 
+and    department_id < (select department_id  
+from   employees 
+where  last_name='Hall') 
+and    to_char(hire_date, 'YYYY') > 2004 
+order  by 3; 
+
+select employee_id, last_name, department_id, salary, hire_date 
+from   employees 
+where  to_char(hire_date, 'YYYY') = 2005 
+order  by 5;
+
+select employee_id, last_name, department_id, salary, hire_date 
+from   employees 
+where  to_char(hire_date, 'YYYY') > 2004 
+order  by 5; 
+
+SELECT department_id, sum(salary) total_salary 
+FROM   employees 
+GROUP  BY department_id 
+order  by 1; 
+
+SELECT last_name, job_id, salary 
+FROM   employees 
+WHERE  salary = 
+(SELECT Max(salary) 
+FROM   employees); 
+
+SELECT department_id, sum(salary) total_salary 
+FROM   employees 
+GROUP  BY department_id 
+having sum(salary) > 58000 
+order  by 1; 
+
+
+SELECT department_id, sum(salary) total_salary 
+FROM   employees 
+GROUP  BY department_id 
+having sum(salary) > (select sum(salary)  
+from   employees  
+where  department_id=90) 
+order  by 1; 
+
+
+SELECT department_id, sum(salary) total_salary 
+FROM   employees 
+GROUP  BY department_id 
+having sum(salary) > (select sum(salary)  
+from   employees  
+where  department_id=9999990) 
+order  by 1;
+
+
+SELECT employee_id, last_name, job_id, salary 
+FROM   employees 
+WHERE  salary < ANY 
+(SELECT salary 
+FROM   employees 
+WHERE  job_id = 'IT_PROG') 
+AND  job_id <> 'IT_PROG' 
+order by salary desc; 
+
+
+SELECT employee_id, last_name, job_id, salary 
+FROM   employees 
+WHERE  salary > ANY 
+(SELECT salary 
+FROM   employees 
+WHERE  job_id = 'IT_PROG') 
+AND  job_id <> 'IT_PROG' 
+order by salary; 
+
+SELECT employee_id, last_name, job_id, salary 
+FROM   employees 
+WHERE  salary > ALL 
+(SELECT salary 
+FROM   employees 
+WHERE  job_id = 'IT_PROG') 
+AND  job_id <> 'IT_PROG' 
+order by salary; 
+
+SELECT employee_id, last_name, job_id, salary 
+FROM   employees 
+WHERE  salary < ALL 
+(SELECT salary 
+FROM   employees 
+WHERE  job_id = 'IT_PROG') 
+AND  job_id <> 'IT_PROG' 
+order by salary desc ; 
+
+
+union 
+union all 
+intersect 
+minus
+
+
+select EMPLOYEE_ID, JOB_ID, DEPARTMENT_ID 
+from   employees 
+union 
+select EMPLOYEE_ID, JOB_ID, DEPARTMENT_ID 
+from   job_history 
+order  by EMPLOYEE_ID; 
+
+select EMPLOYEE_ID, JOB_ID, DEPARTMENT_ID 
+from   employees 
+union all 
+select EMPLOYEE_ID, JOB_ID, DEPARTMENT_ID 
+from   job_history 
+order  by EMPLOYEE_ID; 
+
+select EMPLOYEE_ID, JOB_ID, DEPARTMENT_ID 
+from   employees 
+intersect 
+select EMPLOYEE_ID, JOB_ID, DEPARTMENT_ID 
+from   job_history 
+order  by EMPLOYEE_ID; 
+
+
+select EMPLOYEE_ID, JOB_ID, DEPARTMENT_ID 
+from   employees 
+minus 
+select EMPLOYEE_ID, JOB_ID, DEPARTMENT_ID 
+from   job_history 
+order  by EMPLOYEE_ID; 
+
+
+select EMPLOYEE_ID, JOB_ID, DEPARTMENT_ID, salary 
+from   employees 
+minus 
+select EMPLOYEE_ID, JOB_ID, DEPARTMENT_ID, 0 
+from   job_history 
+order  by EMPLOYEE_ID; 
+
+
+drop table emp; 
+
+
+create table emp 
+( 
+id         number, 
+name       varchar2(25),
+jdate      date
+); 
+ 
+desc emp
+
+insert into emp(id, name, jdate) 
+values(1, 'Abc-1', '09-Oct-26'); 
+insert into emp 
+values(2, 'Abc-2', '02-Oct-26'); 
+insert into emp(id) 
+values(3); 
+insert into emp(id, name, jdate) 
+values(4, null, null); 
+
+
+insert into emp(id, name, jdate) 
+values(5, user, sysdate); 
+insert into emp(id, name, jdate) 
+values(&id, &name, &jdate); 
+insert into emp(id, name, jdate) 
+values(&id, '&name', '&jdate'); 
+
+
+select employee_id, first_name||' '||last_name, hire_date 
+from   employees 
+where  department_id = 90; 
+
+
+insert into emp(id, name, jdate) 
+select employee_id, first_name||' '||last_name, hire_date 
+from   employees 
+where  department_id = 90; 
+
+
+update emp 
+set    name = 'Kamal Khan' 
+where  id = 2; 
+
+update emp 
+set    name = 'Lalon Fokir', jdate = '15-Aug-75' 
+where  id = 4; 
+
+update emp 
+set    name = null 
+where  id = 7;
+
+
+update emp 
+set    name = (select first_name||' '||last_name 
+from   employees 
+where  employee_id = 150) ,  
+jdate = (select hire_date from  employees where  employee_id = 160) 
+where  id = 3; 
+
+update emp 
+set    (name, jdate) = (select first_name||' '||last_name, hire_date 
+from   employees 
+where  employee_id = 170) 
+where  id = 1; 
+
+select * from emp;
+
+delete from emp 
+where  id = 4; 
+
+delete from emp 
+where  id in (select employee_id from employees); 
+
+select * from emp;
+
+create table emp2 
+as 
+select * from emp; ect * from emp;
+
+select * from emp;
+
+
+
+
+
+
+
+
+delete from emp where id = 3; 
+
+savepoint a1; 
+
+delete from emp where id = 2;
+
+savepoint a2; 
+
+
+rollback to savepoint a1; 
