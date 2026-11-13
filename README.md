@@ -95,3 +95,32 @@ Topics covered:
 - Cross Join
 
 **All the practice commands are collected together at the end of the file for easy reference.**
+
+## File 06: Subqueries, Set Operators, DML and Transactions
+
+**File:** `06_Subqueries_Set_Operators_DML_and_Transactions.LST`
+
+**Topics covered:**
+
+- Single-Row Subqueries
+- Multiple-Row Subqueries
+- Nested Subqueries
+- Subqueries with Multiple Conditions
+- Subqueries with Aggregate Functions (`MAX`, `SUM`)
+- Subqueries in `HAVING` Clause
+- `ANY` and `ALL` Operators
+- Set Operators (`UNION`, `UNION ALL`, `INTERSECT`, `MINUS`)
+- `DROP TABLE` Statement
+- `CREATE TABLE` Statement
+- `DESCRIBE` (`DESC`) Command
+- `INSERT` Statement
+- `INSERT` with Subquery
+- Substitution Variables (`&`)
+- `UPDATE` Statement
+- `UPDATE` with Subqueries
+- `DELETE` Statement
+- `DELETE` with Subquery
+- `CREATE TABLE AS SELECT` (`CTAS`)
+- Transaction Control (`SAVEPOINT`, `ROLLBACK TO SAVEPOINT`)
+
+**All the practice commands are collected together at the end of the file for easy reference.**
