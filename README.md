@@ -155,6 +155,11 @@ Topics covered:
 - Flashback Table (`FLASHBACK TABLE`, `TO BEFORE DROP`)
 - View Creation (`CREATE OR REPLACE VIEW`)
 - View Metadata (`USER_VIEWS`)
+- Index Creation (`CREATE INDEX`)
+- Sequence Management (`CREATE SEQUENCE`, `DROP SEQUENCE`, `NEXTVAL`, `CURRVAL`)
+- Sequence Metadata (`USER_SEQUENCES`)
+- Synonym Creation (`CREATE SYNONYM`)
+- Synonym Metadata (`USER_SYNONYMS`)
 - Querying View Definitions (`SELECT`, `TEXT`)
 
 **All the practice commands are collected together at the end of the file for easy reference.**
