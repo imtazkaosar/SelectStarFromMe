@@ -124,3 +124,37 @@ Topics covered:
 - Transaction Control (`SAVEPOINT`, `ROLLBACK TO SAVEPOINT`)
 
 **All the practice commands are collected together at the end of the file for easy reference.**
+
+## File 07: Oracle DDL, Constraints, Data Dictionary and Views
+
+**File:** `07_Oracle_DDL_Constraints_Data_Dictionary_and_Views.LST`
+
+**Topics covered:**
+
+- Table Creation (`CREATE TABLE`)
+- Default Values (`DEFAULT`, `USER`, `SYSDATE`)
+- Table Structure (`DESC`, `DESCRIBE`)
+- Data Insertion (`INSERT INTO`, `VALUES`)
+- Integrity Constraints
+- Primary Key Constraint (`PRIMARY KEY`)
+- Foreign Key Constraint (`FOREIGN KEY`, `REFERENCES`)
+- Unique Constraint (`UNIQUE`)
+- Not Null Constraint (`NOT NULL`)
+- Check Constraint (`CHECK`, `BETWEEN`)
+- Constraint Naming
+- Constraint Modification (`ALTER TABLE`, `ADD CONSTRAINT`)
+- Table Modification (`ADD`, `MODIFY`, `DROP COLUMN`)
+- Constraint and Column Metadata (`USER_CONS_COLUMNS`)
+- Table Metadata (`USER_TABLES`, `USER_TAB_COLUMNS`)
+- Database Object Metadata (`USER_OBJECTS`, `ALL_OBJECTS`)
+- Data Dictionary (`DICTIONARY`)
+- Table Joins (Traditional Oracle Join Syntax)
+- Create Table As Select (`CTAS`)
+- Oracle Recycle Bin (`RECYCLEBIN`)
+- Purge Operations (`PURGE`, `PURGE RECYCLEBIN`)
+- Flashback Table (`FLASHBACK TABLE`, `TO BEFORE DROP`)
+- View Creation (`CREATE OR REPLACE VIEW`)
+- View Metadata (`USER_VIEWS`)
+- Querying View Definitions (`SELECT`, `TEXT`)
+
+**All the practice commands are collected together at the end of the file for easy reference.**
