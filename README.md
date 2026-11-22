@@ -6,7 +6,7 @@ All the files will contains the output generated using Oracle SQL*Plus while exp
 
 ## File 01: Schema Tables and Data
 
-**File:** `Schema_tables_data.LST`
+**File:** `01_Schema_tables_data.LST`
 
 This file contains Oracle SQL*Plus output exploring the built-in HR (Human Resources) schema, including the schema overview, table descriptions, and data retrieved from all tables using SELECT queries.
 
