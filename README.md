@@ -163,3 +163,58 @@ Topics covered:
 - Querying View Definitions (`SELECT`, `TEXT`)
 
 **All the practice commands are collected together at the end of the file for easy reference.**
+
+## File 08: Oracle Advanced SQL, User Management and Data Integration
+
+**File:** `08_Oracle_Advanced_SQL_User_Management_and_Data_Integration.LST`
+
+**Topics covered:**
+
+- External Tables (`ORGANIZATION EXTERNAL`, `ORACLE_LOADER`)
+- Advanced Subqueries
+- Multiple-Column Subqueries
+- Correlated Subqueries
+- Subqueries with Aggregate Functions (`AVG`, `COUNT`)
+- EXISTS and NOT EXISTS Conditions
+- Subqueries in ORDER BY
+- CASE Expressions (`CASE`, `WHEN`, `THEN`, `ELSE`)
+- Advanced Joins (`NATURAL JOIN`, `JOIN`, `USING`, `ON`)
+- DML Operations on Join Views (`INSERT INTO`)
+- User Management (`CREATE USER`, `ALTER USER`, `DROP USER`)
+- User Account Management (`ACCOUNT LOCK`, `ACCOUNT UNLOCK`)
+- System Privileges (`CREATE SESSION`, `CREATE TABLE`, `CREATE VIEW`, `CREATE SEQUENCE`)
+- Object Privileges (`SELECT`, `INSERT`, `UPDATE`, `DELETE`)
+- Role Management (`CREATE ROLE`, `GRANT`)
+- Privilege Management (`GRANT`, `WITH GRANT OPTION`)
+- User Privilege Metadata (`USER_SYS_PRIVS`, `USER_ROLE_PRIVS`, `DBA_USERS`)
+- Multi-Table Insert (`INSERT ALL`, `INSERT FIRST`)
+- Conditional Multi-Table Insert (`WHEN`, `THEN`, `ELSE`)
+- Data Transformation Using Multi-Table Inserts
+- MERGE Statement (`MERGE INTO`, `WHEN MATCHED`, `WHEN NOT MATCHED`)
+- Table Creation and Data Manipulation (`CREATE TABLE`, `CTAS`, `UPDATE`, `DROP TABLE`)
+- Transaction Management (`COMMIT`)
+- Flashback Version Query (`VERSIONS BETWEEN SCN MINVALUE AND MAXVALUE`)
+- Historical Data Tracking (`VERSIONS_STARTTIME`, `VERSIONS_ENDTIME`)
+
+**All the practice commands are collected together at the end of the file for easy reference.**
+
+---
+
+## Oracle SQL Learning Journey — Completed
+
+This file marks the completion of my current Oracle SQL learning series through IBCS-PRIMAX.
+
+Throughout this journey, I practiced SQL fundamentals, data filtering, functions, aggregate operations, grouping, joins, subqueries, set operators, DDL, DML, constraints, indexes, sequences, synonyms, views, data dictionary queries, transaction management, advanced SQL techniques, and database user and privilege management.
+
+I gained practical experience working with Oracle's built-in HR schema, creating and modifying database objects, querying data, managing transactions, and exploring advanced database operations.
+
+
+## A Note to Visitors
+
+Welcome to my repository!
+
+This repository contains my personal Oracle SQL practice. I am sharing the SQL commands I have practiced along with their outputs so that anyone interested can explore them, learn from the examples, and practice on their own.
+
+Please note: *I am not providing tutorials or teaching anyone through this repository. These are simply my personal learning records, so there may be mistakes, incomplete solutions, or incorrect outputs. Please use them as practice references rather than as a source of guaranteed or error-free information.*
+
+MD. IMTAZ KAOSAR
