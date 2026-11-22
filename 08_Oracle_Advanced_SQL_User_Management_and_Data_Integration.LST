@@ -1,0 +1,1852 @@
+SQL> show spool
+spool ON
+SQL> select * from emp2;
+
+       EID NAME                     SALARY        NID    DEPT_ID DEPT_NAME      
+---------- -------------------- ---------- ---------- ---------- ---------------
+         1 Abc-1                     12000        111          1 IT             
+         2 Abc-2                     15000        121          1 IT             
+         3 Abc-3                     17000        131          2 Sales          
+
+SQL> select department_name, city
+  2  from departments
+  3  natural join (select l.location_id,l.city,l.country_id
+  4                from locations l
+  5                join countries c
+  6                on (l.country_id=c.country_id)
+  7                join regions using (region_id)
+  8                where region_name='Europe');
+
+DEPARTMENT_NAME                CITY                                             
+------------------------------ ------------------------------                   
+Human Resources                London                                           
+Sales                          Oxford                                           
+Public Relations               Munich                                           
+
+SQL> select employee_id,manager_id, department_id
+  2  from employees
+  3  where (manager_id, department_id) in
+  4  (select manager_id,department_id
+  5  from employees
+  6  where first_name='Jhon')
+  7  and first_name<>'Jhon';
+
+no rows selected
+
+SQL> select employee_id,manager_id, department_id
+  2  from employees
+  3  where manager_id in
+  4  (select manager_id
+  5  from employees
+  6  where first_name='Jhon')
+  7  and department_id in
+  8  (select department_id
+  9  from employees
+ 10  where first_name='Jhon')
+ 11  and first_name<>'Jhon';
+
+no rows selected
+
+SQL> select employee_id, last_name,
+  2  (case
+  3  when department_id=
+  4  (select department_id
+  5  from departments
+  6  where location_id=1800)
+  7  then 'Canada' else'USA' end) location
+  8  from employees;
+
+EMPLOYEE_ID LAST_NAME                 LOCATI                                    
+----------- ------------------------- ------                                    
+        100 King                      USA                                       
+        101 Kochhar                   USA                                       
+        102 De Haan                   USA                                       
+        103 Hunold                    USA                                       
+        104 Ernst                     USA                                       
+        105 Austin                    USA                                       
+        106 Pataballa                 USA                                       
+        107 Lorentz                   USA                                       
+        108 Greenberg                 USA                                       
+        109 Faviet                    USA                                       
+        110 Chen                      USA                                       
+
+EMPLOYEE_ID LAST_NAME                 LOCATI                                    
+----------- ------------------------- ------                                    
+        111 Sciarra                   USA                                       
+        112 Urman                     USA                                       
+        113 Popp                      USA                                       
+        114 Raphaely                  USA                                       
+        115 Khoo                      USA                                       
+        116 Baida                     USA                                       
+        117 Tobias                    USA                                       
+        118 Himuro                    USA                                       
+        119 Colmenares                USA                                       
+        120 Weiss                     USA                                       
+        121 Fripp                     USA                                       
+
+EMPLOYEE_ID LAST_NAME                 LOCATI                                    
+----------- ------------------------- ------                                    
+        122 Kaufling                  USA                                       
+        123 Vollman                   USA                                       
+        124 Mourgos                   USA                                       
+        125 Nayer                     USA                                       
+        126 Mikkilineni               USA                                       
+        127 Landry                    USA                                       
+        128 Markle                    USA                                       
+        129 Bissot                    USA                                       
+        130 Atkinson                  USA                                       
+        131 Marlow                    USA                                       
+        132 Olson                     USA                                       
+
+EMPLOYEE_ID LAST_NAME                 LOCATI                                    
+----------- ------------------------- ------                                    
+        133 Mallin                    USA                                       
+        134 Rogers                    USA                                       
+        135 Gee                       USA                                       
+        136 Philtanker                USA                                       
+        137 Ladwig                    USA                                       
+        138 Stiles                    USA                                       
+        139 Seo                       USA                                       
+        140 Patel                     USA                                       
+        141 Rajs                      USA                                       
+        142 Davies                    USA                                       
+        143 Matos                     USA                                       
+
+EMPLOYEE_ID LAST_NAME                 LOCATI                                    
+----------- ------------------------- ------                                    
+        144 Vargas                    USA                                       
+        145 Russell                   USA                                       
+        146 Partners                  USA                                       
+        147 Errazuriz                 USA                                       
+        148 Cambrault                 USA                                       
+        149 Zlotkey                   USA                                       
+        150 Tucker                    USA                                       
+        151 Bernstein                 USA                                       
+        152 Hall                      USA                                       
+        153 Olsen                     USA                                       
+        154 Cambrault                 USA                                       
+
+EMPLOYEE_ID LAST_NAME                 LOCATI                                    
+----------- ------------------------- ------                                    
+        155 Tuvault                   USA                                       
+        156 King                      USA                                       
+        157 Sully                     USA                                       
+        158 McEwen                    USA                                       
+        159 Smith                     USA                                       
+        160 Doran                     USA                                       
+        161 Sewall                    USA                                       
+        162 Vishney                   USA                                       
+        163 Greene                    USA                                       
+        164 Marvins                   USA                                       
+        165 Lee                       USA                                       
+
+EMPLOYEE_ID LAST_NAME                 LOCATI                                    
+----------- ------------------------- ------                                    
+        166 Ande                      USA                                       
+        167 Banda                     USA                                       
+        168 Ozer                      USA                                       
+        169 Bloom                     USA                                       
+        170 Fox                       USA                                       
+        171 Smith                     USA                                       
+        172 Bates                     USA                                       
+        173 Kumar                     USA                                       
+        174 Abel                      USA                                       
+        175 Hutton                    USA                                       
+        176 Taylor                    USA                                       
+
+EMPLOYEE_ID LAST_NAME                 LOCATI                                    
+----------- ------------------------- ------                                    
+        177 Livingston                USA                                       
+        178 Grant                     USA                                       
+        179 Johnson                   USA                                       
+        180 Taylor                    USA                                       
+        181 Fleaur                    USA                                       
+        182 Sullivan                  USA                                       
+        183 Geoni                     USA                                       
+        184 Sarchand                  USA                                       
+        185 Bull                      USA                                       
+        186 Dellinger                 USA                                       
+        187 Cabrio                    USA                                       
+
+EMPLOYEE_ID LAST_NAME                 LOCATI                                    
+----------- ------------------------- ------                                    
+        188 Chung                     USA                                       
+        189 Dilly                     USA                                       
+        190 Gates                     USA                                       
+        191 Perkins                   USA                                       
+        192 Bell                      USA                                       
+        193 Everett                   USA                                       
+        194 McCain                    USA                                       
+        195 Jones                     USA                                       
+        196 Walsh                     USA                                       
+        197 Feeney                    USA                                       
+        198 OConnell                  USA                                       
+
+EMPLOYEE_ID LAST_NAME                 LOCATI                                    
+----------- ------------------------- ------                                    
+        199 Grant                     USA                                       
+        200 Whalen                    USA                                       
+        201 Hartstein                 Canada                                    
+        202 Fay                       Canada                                    
+        203 Mavris                    USA                                       
+        204 Baer                      USA                                       
+        205 Higgins                   USA                                       
+        206 Gietz                     USA                                       
+
+107 rows selected.
+
+SQL> select employee_id, last_name,
+  2  from employees
+  3  order by
+  4  (select department_id,department_name
+  5  from departments d
+  6  where e.department-id=d.department_id);
+from employees
+*
+ERROR at line 2:
+ORA-00936: missing expression 
+
+
+SQL> select employee_id, last_name,
+  2  from employees e
+  3  order by
+  4  (select department_id,department_name
+  5  from departments d
+  6  where e.department-id=d.department_id);
+from employees e
+*
+ERROR at line 2:
+ORA-00936: missing expression 
+
+
+SQL> 
+SQL> select employee_id, last_name
+  2  from employees e
+  3  order by
+  4  (select department_id,department_name
+  5  from departments d
+  6  where e.department-id=d.department_id);
+(select department_id,department_name
+ *
+ERROR at line 4:
+ORA-00913: too many values 
+
+
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> from employees e
+SP2-0734: unknown command beginning "from emplo..." - rest of line ignored.
+SQL> order by
+SP2-0042: unknown command "order by" - rest of line ignored.
+SQL> (select department_name
+  2  from departments d
+  3  where e.department-id=d.department_id);
+where e.department-id=d.department_id)
+                   *
+ERROR at line 3:
+ORA-00904: "ID": invalid identifier 
+
+
+SQL> select employee_id, last_name
+  2  from employees e
+  3  order by(select department_name
+  4  from departments d
+  5  where e.department_id=d.department_id);
+
+EMPLOYEE_ID LAST_NAME                                                           
+----------- -------------------------                                           
+        205 Higgins                                                             
+        206 Gietz                                                               
+        200 Whalen                                                              
+        100 King                                                                
+        101 Kochhar                                                             
+        102 De Haan                                                             
+        109 Faviet                                                              
+        108 Greenberg                                                           
+        112 Urman                                                               
+        111 Sciarra                                                             
+        110 Chen                                                                
+
+EMPLOYEE_ID LAST_NAME                                                           
+----------- -------------------------                                           
+        113 Popp                                                                
+        203 Mavris                                                              
+        107 Lorentz                                                             
+        106 Pataballa                                                           
+        105 Austin                                                              
+        103 Hunold                                                              
+        104 Ernst                                                               
+        201 Hartstein                                                           
+        202 Fay                                                                 
+        204 Baer                                                                
+        119 Colmenares                                                          
+
+EMPLOYEE_ID LAST_NAME                                                           
+----------- -------------------------                                           
+        114 Raphaely                                                            
+        115 Khoo                                                                
+        116 Baida                                                               
+        117 Tobias                                                              
+        118 Himuro                                                              
+        167 Banda                                                               
+        168 Ozer                                                                
+        169 Bloom                                                               
+        170 Fox                                                                 
+        171 Smith                                                               
+        172 Bates                                                               
+
+EMPLOYEE_ID LAST_NAME                                                           
+----------- -------------------------                                           
+        173 Kumar                                                               
+        174 Abel                                                                
+        175 Hutton                                                              
+        176 Taylor                                                              
+        177 Livingston                                                          
+        179 Johnson                                                             
+        145 Russell                                                             
+        146 Partners                                                            
+        147 Errazuriz                                                           
+        148 Cambrault                                                           
+        149 Zlotkey                                                             
+
+EMPLOYEE_ID LAST_NAME                                                           
+----------- -------------------------                                           
+        150 Tucker                                                              
+        151 Bernstein                                                           
+        152 Hall                                                                
+        153 Olsen                                                               
+        154 Cambrault                                                           
+        155 Tuvault                                                             
+        156 King                                                                
+        157 Sully                                                               
+        158 McEwen                                                              
+        159 Smith                                                               
+        160 Doran                                                               
+
+EMPLOYEE_ID LAST_NAME                                                           
+----------- -------------------------                                           
+        161 Sewall                                                              
+        162 Vishney                                                             
+        163 Greene                                                              
+        164 Marvins                                                             
+        165 Lee                                                                 
+        166 Ande                                                                
+        180 Taylor                                                              
+        144 Vargas                                                              
+        182 Sullivan                                                            
+        183 Geoni                                                               
+        184 Sarchand                                                            
+
+EMPLOYEE_ID LAST_NAME                                                           
+----------- -------------------------                                           
+        185 Bull                                                                
+        186 Dellinger                                                           
+        187 Cabrio                                                              
+        188 Chung                                                               
+        189 Dilly                                                               
+        190 Gates                                                               
+        191 Perkins                                                             
+        192 Bell                                                                
+        193 Everett                                                             
+        194 McCain                                                              
+        195 Jones                                                               
+
+EMPLOYEE_ID LAST_NAME                                                           
+----------- -------------------------                                           
+        196 Walsh                                                               
+        197 Feeney                                                              
+        198 OConnell                                                            
+        199 Grant                                                               
+        120 Weiss                                                               
+        121 Fripp                                                               
+        122 Kaufling                                                            
+        123 Vollman                                                             
+        124 Mourgos                                                             
+        125 Nayer                                                               
+        126 Mikkilineni                                                         
+
+EMPLOYEE_ID LAST_NAME                                                           
+----------- -------------------------                                           
+        127 Landry                                                              
+        128 Markle                                                              
+        129 Bissot                                                              
+        130 Atkinson                                                            
+        131 Marlow                                                              
+        132 Olson                                                               
+        133 Mallin                                                              
+        134 Rogers                                                              
+        135 Gee                                                                 
+        136 Philtanker                                                          
+        137 Ladwig                                                              
+
+EMPLOYEE_ID LAST_NAME                                                           
+----------- -------------------------                                           
+        138 Stiles                                                              
+        139 Seo                                                                 
+        140 Patel                                                               
+        141 Rajs                                                                
+        142 Davies                                                              
+        143 Matos                                                               
+        181 Fleaur                                                              
+        178 Grant                                                               
+
+107 rows selected.
+
+SQL> select last_name,salary, department_id
+  2  from employee outer_table
+  3  where salary > (select avg(salary)
+  4                  from employees inner_table
+  5                  where inner_table.department_id=outer_table.department_id);
+from employee outer_table
+     *
+ERROR at line 2:
+ORA-00942: table or view does not exist 
+
+
+SQL> select last_name,salary, department_id
+  2  from employees outer_table
+  3  where salary > (select avg(salary)
+  4                  from employees inner_table
+  5                  where inner_table.department_id=outer_table.department_id);
+
+LAST_NAME                     SALARY DEPARTMENT_ID                              
+------------------------- ---------- -------------                              
+King                           24000            90                              
+Hunold                          9000            60                              
+Ernst                           6000            60                              
+Greenberg                      12008           100                              
+Faviet                          9000           100                              
+Raphaely                       11000            30                              
+Weiss                           8000            50                              
+Fripp                           8200            50                              
+Kaufling                        7900            50                              
+Vollman                         6500            50                              
+Mourgos                         5800            50                              
+
+LAST_NAME                     SALARY DEPARTMENT_ID                              
+------------------------- ---------- -------------                              
+Ladwig                          3600            50                              
+Rajs                            3500            50                              
+Russell                        14000            80                              
+Partners                       13500            80                              
+Errazuriz                      12000            80                              
+Cambrault                      11000            80                              
+Zlotkey                        10500            80                              
+Tucker                         10000            80                              
+Bernstein                       9500            80                              
+Hall                            9000            80                              
+King                           10000            80                              
+
+LAST_NAME                     SALARY DEPARTMENT_ID                              
+------------------------- ---------- -------------                              
+Sully                           9500            80                              
+McEwen                          9000            80                              
+Vishney                        10500            80                              
+Greene                          9500            80                              
+Ozer                           11500            80                              
+Bloom                          10000            80                              
+Fox                             9600            80                              
+Abel                           11000            80                              
+Sarchand                        4200            50                              
+Bull                            4100            50                              
+Chung                           3800            50                              
+
+LAST_NAME                     SALARY DEPARTMENT_ID                              
+------------------------- ---------- -------------                              
+Dilly                           3600            50                              
+Bell                            4000            50                              
+Everett                         3900            50                              
+Hartstein                      13000            20                              
+Higgins                        12008           110                              
+
+38 rows selected.
+
+SQL> select e.employee_id,last_name,e.job_id
+  2  from employees e
+  3  where 2<=(select count(*)
+  4  from job_history
+  5  where employee_id=e.employee_id);
+
+EMPLOYEE_ID LAST_NAME                 JOB_ID                                    
+----------- ------------------------- ----------                                
+        101 Kochhar                   AD_VP                                     
+        176 Taylor                    SA_REP                                    
+        200 Whalen                    AD_ASST                                   
+
+SQL> select last_name, department_id,employee_id,job_id
+  2  from employees outer
+  3  where exists (select 'X'
+  4  from employees
+  5  where manager_id=outer.employee_id);
+
+LAST_NAME                 DEPARTMENT_ID EMPLOYEE_ID JOB_ID                      
+------------------------- ------------- ----------- ----------                  
+King                                 90         100 AD_PRES                     
+Kochhar                              90         101 AD_VP                       
+De Haan                              90         102 AD_VP                       
+Hunold                               60         103 IT_PROG                     
+Greenberg                           100         108 FI_MGR                      
+Raphaely                             30         114 PU_MAN                      
+Weiss                                50         120 ST_MAN                      
+Fripp                                50         121 ST_MAN                      
+Kaufling                             50         122 ST_MAN                      
+Vollman                              50         123 ST_MAN                      
+Mourgos                              50         124 ST_MAN                      
+
+LAST_NAME                 DEPARTMENT_ID EMPLOYEE_ID JOB_ID                      
+------------------------- ------------- ----------- ----------                  
+Russell                              80         145 SA_MAN                      
+Partners                             80         146 SA_MAN                      
+Errazuriz                            80         147 SA_MAN                      
+Cambrault                            80         148 SA_MAN                      
+Zlotkey                              80         149 SA_MAN                      
+Hartstein                            20         201 MK_MAN                      
+Higgins                             110         205 AC_MGR                      
+
+18 rows selected.
+
+SQL> select department_id,department_name
+  2  from departments d
+  3  where not exists (select 'X'
+  4  from employees
+  5  where department_id=d.department_id);
+
+DEPARTMENT_ID DEPARTMENT_NAME                                                   
+------------- ------------------------------                                    
+          120 Treasury                                                          
+          130 Corporate Tax                                                     
+          140 Control And Credit                                                
+          150 Shareholder Services                                              
+          160 Benefits                                                          
+          170 Manufacturing                                                     
+          180 Construction                                                      
+          190 Contracting                                                       
+          200 Operations                                                        
+          210 IT Support                                                        
+          220 NOC                                                               
+
+DEPARTMENT_ID DEPARTMENT_NAME                                                   
+------------- ------------------------------                                    
+          230 IT Helpdesk                                                       
+          240 Government Sales                                                  
+          250 Retail Sales                                                      
+          260 Recruiting                                                        
+          270 Payroll                                                           
+
+16 rows selected.
+
+SQL> insert into (select l.location_id, l.city, l.country_id
+  2  from loc l
+  3  join countries c
+  4  on(l.country_id = c.country_id)
+  5  join regions using(region_id)
+  6  where region_name = 'Europe')
+  7  values (3300, 'Cardiff', 'UK');
+from loc l
+     *
+ERROR at line 2:
+ORA-00942: table or view does not exist 
+
+
+SQL> insert into (select l.location_id, l.city, l.country_id
+  2  from locations l
+  3  join countries c
+  4  on(l.country_id = c.country_id)
+  5  join regions using(region_id)
+  6  where region_name = 'Europe')
+  7  values (3300, 'Cardiff', 'UK');
+
+1 row created.
+
+SQL> select * from locations;
+
+LOCATION_ID STREET_ADDRESS                           POSTAL_CODE                
+----------- ---------------------------------------- ------------               
+CITY                           STATE_PROVINCE            CO                     
+------------------------------ ------------------------- --                     
+       1000 1297 Via Cola di Rie                     00989                      
+Roma                                                     IT                     
+                                                                                
+       1100 93091 Calle della Testa                  10934                      
+Venice                                                   IT                     
+                                                                                
+       1200 2017 Shinjuku-ku                         1689                       
+Tokyo                          Tokyo Prefecture          JP                     
+                                                                                
+
+LOCATION_ID STREET_ADDRESS                           POSTAL_CODE                
+----------- ---------------------------------------- ------------               
+CITY                           STATE_PROVINCE            CO                     
+------------------------------ ------------------------- --                     
+       1300 9450 Kamiya-cho                          6823                       
+Hiroshima                                                JP                     
+                                                                                
+       1400 2014 Jabberwocky Rd                      26192                      
+Southlake                      Texas                     US                     
+                                                                                
+       1500 2011 Interiors Blvd                      99236                      
+South San Francisco            California                US                     
+                                                                                
+
+LOCATION_ID STREET_ADDRESS                           POSTAL_CODE                
+----------- ---------------------------------------- ------------               
+CITY                           STATE_PROVINCE            CO                     
+------------------------------ ------------------------- --                     
+       1600 2007 Zagora St                           50090                      
+South Brunswick                New Jersey                US                     
+                                                                                
+       1700 2004 Charade Rd                          98199                      
+Seattle                        Washington                US                     
+                                                                                
+       1800 147 Spadina Ave                          M5V 2L7                    
+Toronto                        Ontario                   CA                     
+                                                                                
+
+LOCATION_ID STREET_ADDRESS                           POSTAL_CODE                
+----------- ---------------------------------------- ------------               
+CITY                           STATE_PROVINCE            CO                     
+------------------------------ ------------------------- --                     
+       1900 6092 Boxwood St                          YSW 9T2                    
+Whitehorse                     Yukon                     CA                     
+                                                                                
+       2000 40-5-12 Laogianggen                      190518                     
+Beijing                                                  CN                     
+                                                                                
+       2100 1298 Vileparle (E)                       490231                     
+Bombay                         Maharashtra               IN                     
+                                                                                
+
+LOCATION_ID STREET_ADDRESS                           POSTAL_CODE                
+----------- ---------------------------------------- ------------               
+CITY                           STATE_PROVINCE            CO                     
+------------------------------ ------------------------- --                     
+       2200 12-98 Victoria Street                    2901                       
+Sydney                         New South Wales           AU                     
+                                                                                
+       2300 198 Clementi North                       540198                     
+Singapore                                                SG                     
+                                                                                
+       2400 8204 Arthur St                                                      
+London                                                   UK                     
+                                                                                
+
+LOCATION_ID STREET_ADDRESS                           POSTAL_CODE                
+----------- ---------------------------------------- ------------               
+CITY                           STATE_PROVINCE            CO                     
+------------------------------ ------------------------- --                     
+       2500 Magdalen Centre, The Oxford Science Park OX9 9ZB                    
+Oxford                         Oxford                    UK                     
+                                                                                
+       2600 9702 Chester Road                        09629850293                
+Stretford                      Manchester                UK                     
+                                                                                
+       2700 Schwanthalerstr. 7031                    80925                      
+Munich                         Bavaria                   DE                     
+                                                                                
+
+LOCATION_ID STREET_ADDRESS                           POSTAL_CODE                
+----------- ---------------------------------------- ------------               
+CITY                           STATE_PROVINCE            CO                     
+------------------------------ ------------------------- --                     
+       2800 Rua Frei Caneca 1360                     01307-002                  
+Sao Paulo                      Sao Paulo                 BR                     
+                                                                                
+       2900 20 Rue des Corps-Saints                  1730                       
+Geneva                         Geneve                    CH                     
+                                                                                
+       3000 Murtenstrasse 921                        3095                       
+Bern                           BE                        CH                     
+                                                                                
+
+LOCATION_ID STREET_ADDRESS                           POSTAL_CODE                
+----------- ---------------------------------------- ------------               
+CITY                           STATE_PROVINCE            CO                     
+------------------------------ ------------------------- --                     
+       3100 Pieter Breughelstraat 837                3029SK                     
+Utrecht                        Utrecht                   NL                     
+                                                                                
+       3200 Mariano Escobedo 9991                    11932                      
+Mexico City                    Distrito Federal,         MX                     
+                                                                                
+       3300                                                                     
+Cardiff                                                  UK                     
+                                                                                
+
+24 rows selected.
+
+SQL> create table dept
+  2  (
+  3  did       number,
+  4  dname     varchar2(25)
+  5  );
+create table dept
+             *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object 
+
+
+SQL> drop table dept purge;
+drop table dept purge
+           *
+ERROR at line 1:
+ORA-02449: unique/primary keys in table referenced by foreign keys 
+
+
+SQL> 
+SQL> create table dept2
+  2  (
+  3  did       number,
+  4  dname     varchar2(25)
+  5  );
+
+Table created.
+
+SQL> insert into dept2(did)
+  2  select department_id
+  3  from   departments;
+
+27 rows created.
+
+SQL> update dept2
+  2  set    dname=(select department_name
+  3  from   departments
+  4  where  departments.department_id = dept2.did);
+
+27 rows updated.
+
+SQL> commit
+  2  
+SQL> commit;
+
+Commit complete.
+
+SQL> conn sys as sysdba
+Connected.
+SQL> create     user abc
+  2  identified by   123;
+
+User created.
+
+SQL> select username from dba_users order by 1;
+
+USERNAME                                                                        
+--------------------------------------------------------------------------------
+ABC                                                                             
+ANONYMOUS                                                                       
+APPQOSSYS                                                                       
+AUDSYS                                                                          
+CTXSYS                                                                          
+DBSFWUSER                                                                       
+DBSNMP                                                                          
+DIP                                                                             
+DVF                                                                             
+DVSYS                                                                           
+GGSYS                                                                           
+
+USERNAME                                                                        
+--------------------------------------------------------------------------------
+GSMADMIN_INTERNAL                                                               
+GSMCATUSER                                                                      
+GSMROOTUSER                                                                     
+GSMUSER                                                                         
+HR                                                                              
+LBACSYS                                                                         
+MDDATA                                                                          
+MDSYS                                                                           
+OJVMSYS                                                                         
+OLAPSYS                                                                         
+ORACLE_OCM                                                                      
+
+USERNAME                                                                        
+--------------------------------------------------------------------------------
+ORDDATA                                                                         
+ORDPLUGINS                                                                      
+ORDSYS                                                                          
+OUTLN                                                                           
+REMOTE_SCHEDULER_AGENT                                                          
+SI_INFORMTN_SCHEMA                                                              
+SYS                                                                             
+SYS$UMF                                                                         
+SYSBACKUP                                                                       
+SYSDG                                                                           
+SYSKM                                                                           
+
+USERNAME                                                                        
+--------------------------------------------------------------------------------
+SYSRAC                                                                          
+SYSTEM                                                                          
+WMSYS                                                                           
+XDB                                                                             
+XS$NULL                                                                         
+
+38 rows selected.
+
+SQL> grant CREATE SESSION
+  2  to    abc, hr;
+
+Grant succeeded.
+
+SQL> create table dept
+  2  (
+  3  did       number,
+  4  dname     varchar2(25)
+  5  );
+
+Table created.
+
+SQL> 
+SQL> grant my_role
+  2  to    abc;
+grant my_role
+      *
+ERROR at line 1:
+ORA-01919: role 'MY_ROLE' does not exist 
+
+
+SQL> grant CREATE SESSION, create table, create view,
+  2        create sequence, create procedure, create trigger
+  3  to    abc, hr;
+
+Grant succeeded.
+
+SQL> create role my_role;
+
+Role created.
+
+SQL> grant CREATE SESSION, create table, create view,
+  2  create sequence, create procedure, create trigger
+  3  to    my_role;
+
+Grant succeeded.
+
+SQL> grant my_role
+  2  to    abc, hr;
+
+Grant succeeded.
+
+SQL> alter user abc identified by 12;
+
+User altered.
+
+SQL> 
+SQL> conn sys as sysdba
+Connected.
+SQL> alter user abc account unlock;
+
+User altered.
+
+SQL> alter user abc account lock;
+
+User altered.
+
+SQL> alter user abc identified by 123 account unlock;
+
+User altered.
+
+SQL> 
+SQL> conn hr
+Connected.
+SQL> grant select, insert, update, delete
+  2  on    emp
+  3  to    abc;
+
+Grant succeeded.
+
+SQL> grant select
+  2  on    dept
+  3  to    abc
+  4  with grant option;
+
+Grant succeeded.
+
+SQL> desc   USER_SYS_PRIVS;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ USERNAME                                           VARCHAR2(128)
+ PRIVILEGE                                          VARCHAR2(40)
+ ADMIN_OPTION                                       VARCHAR2(3)
+ COMMON                                             VARCHAR2(3)
+ INHERITED                                          VARCHAR2(3)
+
+SQL> select PRIVILEGE
+  2  from   USER_SYS_PRIVS;
+
+PRIVILEGE                                                                       
+----------------------------------------                                        
+CREATE TABLE                                                                    
+UNLIMITED TABLESPACE                                                            
+ALTER SESSION                                                                   
+CREATE SESSION                                                                  
+CREATE SYNONYM                                                                  
+CREATE TRIGGER                                                                  
+CREATE DATABASE LINK                                                            
+CREATE SEQUENCE                                                                 
+CREATE PROCEDURE                                                                
+CREATE VIEW                                                                     
+
+10 rows selected.
+
+SQL> desc   USER_ROLE_PRIVS
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ USERNAME                                           VARCHAR2(128)
+ GRANTED_ROLE                                       VARCHAR2(128)
+ ADMIN_OPTION                                       VARCHAR2(3)
+ DELEGATE_OPTION                                    VARCHAR2(3)
+ DEFAULT_ROLE                                       VARCHAR2(3)
+ OS_GRANTED                                         VARCHAR2(3)
+ COMMON                                             VARCHAR2(3)
+ INHERITED                                          VARCHAR2(3)
+
+SQL> 
+SQL> col GRANTED_ROLE for a20
+SQL> col DEFAULT_ROLE for a20
+SQL> col ADMIN_OPTION for a20
+SQL> select GRANTED_ROLE, DEFAULT_ROLE, ADMIN_OPTION
+  2  from   USER_ROLE_PRIVS;
+
+GRANTED_ROLE         DEFAULT_ROLE         ADMIN_OPTION                          
+-------------------- -------------------- --------------------                  
+MY_ROLE              YES                  NO                                    
+RESOURCE             YES                  NO                                    
+
+SQL> grant select
+  2  on    dept
+  3  to    abc
+  4  with grant option;
+
+Grant succeeded.
+
+SQL> rvoke select
+SP2-0734: unknown command beginning "rvoke sele..." - rest of line ignored.
+SQL> on     dept
+SP2-0734: unknown command beginning "on     dep..." - rest of line ignored.
+SQL> from   abc;
+SP2-0042: unknown command "from   abc" - rest of line ignored.
+SQL> create table sal_history
+  2  (
+  3  EMPID       number,
+  4  HIREDATE    date,
+  5  SAL          number
+  6  );
+
+Table created.
+
+SQL> desc sal_history ;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EMPID                                              NUMBER
+ HIREDATE                                           DATE
+ SAL                                                NUMBER
+
+SQL> create table mgr_history
+  2  (
+  3  EMPID      number,
+  4  MGR        number,
+  5  SAL        number
+  6  ) ;
+
+Table created.
+
+SQL> desc sal_history ;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EMPID                                              NUMBER
+ HIREDATE                                           DATE
+ SAL                                                NUMBER
+
+SQL> desc mgr_history ;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EMPID                                              NUMBER
+ MGR                                                NUMBER
+ SAL                                                NUMBER
+
+SQL> INSERT ALL
+  2  INTO sal_history VALUES(EMPID,HIREDATE,SAL)
+  3  INTO mgr_history VALUES(EMPID,MGR,SAL)
+  4  SELECT employee_id EMPID, hire_date HIREDATE,
+  5  salary SAL, manager_id MGR
+  6  FROM   employees
+  7  WHERE  employee_id > 200 ;
+
+12 rows created.
+
+SQL> create table emp_history
+  2  (
+  3  EMPID      number,
+  4  HIREDATE   date,
+  5  SAL        number
+  6  ) ;
+
+Table created.
+
+SQL> create table emp_sales
+  2  (
+  3  EMPID      number,
+  4  COMM       number,
+  5  SAL        number
+  6  ) ;
+
+Table created.
+
+SQL> INSERT ALL
+  2  WHEN   HIREDATE < '01-JAN-03' THEN
+  3  INTO  emp_history VALUES(EMPID, HIREDATE, SAL)
+  4  WHEN   COMM IS NOT NULL THEN
+  5  INTO  emp_sales VALUES(EMPID, COMM, SAL)
+  6  SELECT employee_id EMPID, hire_date HIREDATE,
+  7  salary SAL, commission_pct COMM
+  8  FROM   employees ;
+
+43 rows created.
+
+SQL> create table sal_low
+  2  (
+  3  employee_id number,
+  4  last_name   varchar2(20),
+  5  salary      number
+  6  ) ;
+
+Table created.
+
+SQL> create table sal_mid
+  2  (
+  3  employee_id number,
+  4  last_name   varchar2(20),
+  5  salary      number
+  6  ) ;
+
+Table created.
+
+SQL> 
+SQL> create table sal_high
+  2  (
+  3  employee_id number,
+  4  last_name   varchar2(20),
+  5  salary      number
+  6  ) ;
+
+Table created.
+
+SQL> INSERT FIRST
+  2  WHEN  salary < 5000 THEN
+  3  INTO sal_low VALUES (employee_id, last_name, salary)
+  4  WHEN  salary between 5000 and 10000 THEN
+  5  INTO sal_mid VALUES (employee_id, last_name, salary)
+  6  ELSE
+  7  INTO sal_high VALUES (employee_id, last_name, salary)
+  8  SELECT employee_id, last_name, salary
+  9  FROM   employees ;
+
+107 rows created.
+
+SQL> select *
+  2  from   sal_low
+  3  order  by salary;
+
+EMPLOYEE_ID LAST_NAME                SALARY                                     
+----------- -------------------- ----------                                     
+        132 Olson                      2100                                     
+        128 Markle                     2200                                     
+        136 Philtanker                 2200                                     
+        127 Landry                     2400                                     
+        135 Gee                        2400                                     
+        144 Vargas                     2500                                     
+        140 Patel                      2500                                     
+        191 Perkins                    2500                                     
+        119 Colmenares                 2500                                     
+        131 Marlow                     2500                                     
+        182 Sullivan                   2500                                     
+
+EMPLOYEE_ID LAST_NAME                SALARY                                     
+----------- -------------------- ----------                                     
+        118 Himuro                     2600                                     
+        199 Grant                      2600                                     
+        198 OConnell                   2600                                     
+        143 Matos                      2600                                     
+        126 Mikkilineni                2700                                     
+        139 Seo                        2700                                     
+        130 Atkinson                   2800                                     
+        183 Geoni                      2800                                     
+        195 Jones                      2800                                     
+        117 Tobias                     2800                                     
+        190 Gates                      2900                                     
+
+EMPLOYEE_ID LAST_NAME                SALARY                                     
+----------- -------------------- ----------                                     
+        116 Baida                      2900                                     
+        134 Rogers                     2900                                     
+        187 Cabrio                     3000                                     
+        197 Feeney                     3000                                     
+        142 Davies                     3100                                     
+        115 Khoo                       3100                                     
+        196 Walsh                      3100                                     
+        181 Fleaur                     3100                                     
+        125 Nayer                      3200                                     
+        138 Stiles                     3200                                     
+        180 Taylor                     3200                                     
+
+EMPLOYEE_ID LAST_NAME                SALARY                                     
+----------- -------------------- ----------                                     
+        194 McCain                     3200                                     
+        133 Mallin                     3300                                     
+        129 Bissot                     3300                                     
+        186 Dellinger                  3400                                     
+        141 Rajs                       3500                                     
+        189 Dilly                      3600                                     
+        137 Ladwig                     3600                                     
+        188 Chung                      3800                                     
+        193 Everett                    3900                                     
+        192 Bell                       4000                                     
+        185 Bull                       4100                                     
+
+EMPLOYEE_ID LAST_NAME                SALARY                                     
+----------- -------------------- ----------                                     
+        184 Sarchand                   4200                                     
+        107 Lorentz                    4200                                     
+        200 Whalen                     4400                                     
+        105 Austin                     4800                                     
+        106 Pataballa                  4800                                     
+
+49 rows selected.
+
+SQL> select *
+  2  from   sal_mid
+  3  order  by salary;
+
+EMPLOYEE_ID LAST_NAME                SALARY                                     
+----------- -------------------- ----------                                     
+        124 Mourgos                    5800                                     
+        104 Ernst                      6000                                     
+        202 Fay                        6000                                     
+        173 Kumar                      6100                                     
+        179 Johnson                    6200                                     
+        167 Banda                      6200                                     
+        166 Ande                       6400                                     
+        123 Vollman                    6500                                     
+        203 Mavris                     6500                                     
+        165 Lee                        6800                                     
+        113 Popp                       6900                                     
+
+EMPLOYEE_ID LAST_NAME                SALARY                                     
+----------- -------------------- ----------                                     
+        178 Grant                      7000                                     
+        155 Tuvault                    7000                                     
+        161 Sewall                     7000                                     
+        164 Marvins                    7200                                     
+        172 Bates                      7300                                     
+        171 Smith                      7400                                     
+        160 Doran                      7500                                     
+        154 Cambrault                  7500                                     
+        111 Sciarra                    7700                                     
+        112 Urman                      7800                                     
+        122 Kaufling                   7900                                     
+
+EMPLOYEE_ID LAST_NAME                SALARY                                     
+----------- -------------------- ----------                                     
+        153 Olsen                      8000                                     
+        120 Weiss                      8000                                     
+        159 Smith                      8000                                     
+        110 Chen                       8200                                     
+        121 Fripp                      8200                                     
+        206 Gietz                      8300                                     
+        177 Livingston                 8400                                     
+        176 Taylor                     8600                                     
+        175 Hutton                     8800                                     
+        158 McEwen                     9000                                     
+        109 Faviet                     9000                                     
+
+EMPLOYEE_ID LAST_NAME                SALARY                                     
+----------- -------------------- ----------                                     
+        103 Hunold                     9000                                     
+        152 Hall                       9000                                     
+        151 Bernstein                  9500                                     
+        157 Sully                      9500                                     
+        163 Greene                     9500                                     
+        170 Fox                        9600                                     
+        204 Baer                      10000                                     
+        169 Bloom                     10000                                     
+        156 King                      10000                                     
+        150 Tucker                    10000                                     
+
+43 rows selected.
+
+SQL> select *
+  2  from   sal_high
+  3  order  by salary;
+
+EMPLOYEE_ID LAST_NAME                SALARY                                     
+----------- -------------------- ----------                                     
+        162 Vishney                   10500                                     
+        149 Zlotkey                   10500                                     
+        174 Abel                      11000                                     
+        114 Raphaely                  11000                                     
+        148 Cambrault                 11000                                     
+        168 Ozer                      11500                                     
+        147 Errazuriz                 12000                                     
+        205 Higgins                   12008                                     
+        108 Greenberg                 12008                                     
+        201 Hartstein                 13000                                     
+        146 Partners                  13500                                     
+
+EMPLOYEE_ID LAST_NAME                SALARY                                     
+----------- -------------------- ----------                                     
+        145 Russell                   14000                                     
+        102 De Haan                   17000                                     
+        101 Kochhar                   17000                                     
+        100 King                      24000                                     
+
+15 rows selected.
+
+SQL> create table SALES_SOURCE_DATA
+  2  (
+  3  EMPLOYEE_ID number,
+  4  WEEK_ID     number,
+  5  SALES_MON   number,
+  6  SALES_TUE   number,
+  7  SALES_WED   number,
+  8  SALES_THUR  number,
+  9  SALES_FRI   number
+ 10  ) ;
+
+Table created.
+
+SQL> insert into SALES_SOURCE_DATA
+  2  values(176, 6, 2000, 3000, 4000, 5000, 6000) ;
+
+1 row created.
+
+SQL> commit;
+
+Commit complete.
+
+SQL> select *
+  2  from   SALES_SOURCE_DATA ;
+
+EMPLOYEE_ID    WEEK_ID  SALES_MON  SALES_TUE  SALES_WED SALES_THUR  SALES_FRI   
+----------- ---------- ---------- ---------- ---------- ---------- ----------   
+        176          6       2000       3000       4000       5000       6000   
+
+SQL> create table SALES_INFO
+  2  (
+  3  EMPLOYEE_ID number ,
+  4  WEEK        number ,
+  5  SALES       number ,
+  6  ) ;
+) 
+*
+ERROR at line 6:
+ORA-00904: : invalid identifier 
+
+
+SQL> create table SALES_INFO
+  2  (
+  3  EMPLOYEE_ID number ,
+  4  WEEK        number ,
+  5  SALES       number
+  6  ) ;
+
+Table created.
+
+SQL> INSERT ALL
+  2  INTO sales_info VALUES (employee_id, week_id, sales_MON)
+  3  INTO sales_info VALUES (employee_id, week_id, sales_TUE)
+  4  INTO sales_info VALUES (employee_id, week_id, sales_WED)
+  5  INTO sales_info VALUES (employee_id, week_id, sales_THUR)
+  6  INTO sales_info VALUES (employee_id, week_id, sales_FRI)
+  7  SELECT EMPLOYEE_ID, week_id, sales_MON, sales_TUE,
+  8  sales_WED, sales_THUR,sales_FRI
+  9  FROM   sales_source_data ;
+
+5 rows created.
+
+SQL> select *
+  2  from   SALES_SOURCE_DATA ;
+
+EMPLOYEE_ID    WEEK_ID  SALES_MON  SALES_TUE  SALES_WED SALES_THUR  SALES_FRI   
+----------- ---------- ---------- ---------- ---------- ---------- ----------   
+        176          6       2000       3000       4000       5000       6000   
+
+SQL> select *
+  2  from   SALES_INFO ;
+
+EMPLOYEE_ID       WEEK      SALES                                               
+----------- ---------- ----------                                               
+        176          6       2000                                               
+        176          6       3000                                               
+        176          6       4000                                               
+        176          6       5000                                               
+        176          6       6000                                               
+
+SQL> merge into destination a
+  2  using source b
+  3  on (a.empid=b.empid)
+  4  when matched then
+  5  update
+  6  set a.ename=b.ename,
+  7  a.sal  =b.sal
+  8  when not matched then
+  9  insert
+ 10  values(b.empid, b.ename, b.sal);
+merge into destination a
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> drop table emp purge;
+
+Table dropped.
+
+SQL> 
+SQL> create table emp as select * from employees;
+
+Table created.
+
+SQL> select salary from emp where employee_id = 180;
+
+    SALARY                                                                      
+----------                                                                      
+      3200                                                                      
+
+SQL> 
+SQL> update emp
+  2  set    salary = 3500
+  3  where  employee_id = 180;
+
+1 row updated.
+
+SQL> commit;
+
+Commit complete.
+
+SQL> select salary from emp where employee_id = 180;
+
+    SALARY                                                                      
+----------                                                                      
+      3500                                                                      
+
+SQL> 
+SQL> update emp
+  2  set    salary = 3800
+  3  where  employee_id = 180;
+
+1 row updated.
+
+SQL> commit;
+
+Commit complete.
+
+SQL> select salary from emp where employee_id = 180;
+
+    SALARY                                                                      
+----------                                                                      
+      3800                                                                      
+
+SQL> update emp
+  2  set    salary = 3200
+  3  where  employee_id = 180;
+
+1 row updated.
+
+SQL> commit;
+
+Commit complete.
+
+SQL> select salary from emp where employee_id = 180;
+
+    SALARY                                                                      
+----------                                                                      
+      3200                                                                      
+
+SQL> SELECT salary, user,
+  2  to_char(versions_starttime, 'DD-Mon-RRRR hh:mi:ssam') START_DATE,
+  3  to_char(versions_endtime, 'DD-Mon-RRRR hh:mi:ssam') END_DATE
+  4  FROM   emp
+  5  VERSIONS BETWEEN SCN MINVALUE AND MAXVALUE
+  6  WHERE  employee_id = 180
+  7  order  by START_DATE ;
+
+    SALARY                                                                      
+----------                                                                      
+USER                                                                            
+--------------------------------------------------------------------------------
+START_DATE                      END_DATE                                        
+------------------------------- -------------------------------                 
+      3500                                                                      
+HR                                                                              
+22-Nov-2026 12:21:50pm          22-Nov-2026 12:22:26pm                          
+                                                                                
+      3800                                                                      
+HR                                                                              
+22-Nov-2026 12:22:26pm          22-Nov-2026 12:22:50pm                          
+
+    SALARY                                                                      
+----------                                                                      
+USER                                                                            
+--------------------------------------------------------------------------------
+START_DATE                      END_DATE                                        
+------------------------------- -------------------------------                 
+                                                                                
+      3200                                                                      
+HR                                                                              
+22-Nov-2026 12:22:50pm                                                          
+                                                                                
+      3200                                                                      
+HR                                                                              
+
+    SALARY                                                                      
+----------                                                                      
+USER                                                                            
+--------------------------------------------------------------------------------
+START_DATE                      END_DATE                                        
+------------------------------- -------------------------------                 
+                                22-Nov-2026 12:21:50pm                          
+                                                                                
+
+SQL> spool off
+
+
+
+
+
+
+
+
+
+
+ALL COMMANDS
+
+
+
+
+
+
+
+
+CREATE TABLE empext 
+( 
+id        
+VARCHAR2(5), 
+name      
+VARCHAR2(50), 
+salary    VARCHAR2(50) 
+) 
+ORGANIZATION EXTERNAL  
+( 
+TYPE    ORACLE_LOADER 
+DEFAULT DIRECTORY my_ext_dir 
+ACCESS  PARAMETERS  
+( 
+RECORDS DELIMITED BY NEWLINE 
+FIELDS  TERMINATED BY ',' 
+MISSING FIELD VALUES ARE NULL 
+( 
+id      
+ CHAR(5), 
+name     CHAR(50), 
+salary   CHAR(50) 
+) 
+) 
+LOCATION ('My_File.txt') 
+) 
+PARALLEL 5 
+REJECT LIMIT UNLIMITED ;
+
+
+select department_name, city
+from departments
+natural join (select l.location_id,l.city,l.country_id
+              from locations l
+              join countries c
+              on (l.country_id=c.country_id)
+              join regions using (region_id)
+              where region_name='Europe');
+
+select employee_id,manager_id, department_id
+from employees 
+where (manager_id, department_id) in
+(select manager_id,department_id
+from employees
+where first_name='Jhon')
+and first_name<>'Jhon';
+
+
+select employee_id,manager_id, department_id
+from employees 
+where manager_id in
+(select manager_id
+from employees
+where first_name='Jhon')
+and department_id in
+(select department_id
+from employees
+where first_name='Jhon')
+and first_name<>'Jhon';
+
+
+select employee_id, last_name,
+(case
+when department_id=
+(select department_id
+from departments
+where location_id=1800)
+then 'Canada' else'USA' end) location 
+from employees;
+
+
+select employee_id, last_name
+from employees e
+order by(select department_name
+from departments d
+where e.department_id=d.department_id);
+
+
+select last_name,salary, department_id
+from employees outer_table
+where salary > (select avg(salary)
+                from employees inner_table
+                where inner_table.department_id=outer_table.department_id);
+
+
+select e.employee_id,last_name,e.job_id
+from employees e
+where 2<=(select count(*)
+from job_history
+where employee_id=e.employee_id);
+
+
+select last_name, department_id,employee_id,job_id
+from employees outer
+where exists (select 'X'
+from employees
+where manager_id=outer.employee_id);
+
+
+select department_id,department_name
+from departments d
+where not exists (select 'X'
+from employees
+where department_id=d.department_id);
+
+insert into (select l.location_id, l.city, l.country_id
+from locations l
+join countries c
+on(l.country_id = c.country_id)
+join regions using(region_id)
+where region_name = 'Europe')
+values (3300, 'Cardiff', 'UK');
+
+
+select * from locations;
+
+
+create table dept2 
+( 
+did       number,    
+dname     varchar2(25)    
+); 
+ 
+ 
+insert into dept2(did) 
+select department_id 
+from   departments; 
+
+update dept2 
+set    dname=(select department_name 
+from   departments 
+where  departments.department_id = dept2.did);
+
+commit
+
+conn sys as sysdba 
+
+
+create     user abc 
+identified by   123; 
+
+select username from dba_users order by 1;
+
+grant CREATE SESSION  
+to    abc, hr; 
+
+
+create table dept
+( 
+did       number,    
+dname     varchar2(25)    
+); 
+
+
+grant CREATE SESSION, create table, create view, 
+      create sequence, create procedure, create trigger 
+to    abc, hr;
+
+
+create role my_role;
+
+
+grant CREATE SESSION, create table, create view, 
+create sequence, create procedure, create trigger 
+to    my_role; 
+
+grant my_role 
+to    abc, hr; 
+
+alter user abc identified by 12; 
+
+conn sys as sysdba
+
+
+alter user abc account unlock; 
+alter user abc account lock; 
+
+alter user abc identified by 123 account unlock; 
+
+conn hr
+
+
+grant select, insert, update, delete 
+on    emp 
+to    abc; 
+
+grant select  
+on    dept 
+to    abc 
+with grant option; 
+
+desc   USER_SYS_PRIVS; 
+
+select PRIVILEGE   
+from   USER_SYS_PRIVS; 
+
+desc   USER_ROLE_PRIVS 
+ 
+col GRANTED_ROLE for a20 
+col DEFAULT_ROLE for a20 
+col ADMIN_OPTION for a20 
+
+select GRANTED_ROLE, DEFAULT_ROLE, ADMIN_OPTION  
+from   USER_ROLE_PRIVS; 
+
+
+grant select  
+on    dept 
+to    abc 
+with grant option; 
+
+
+rvoke select  
+on     dept 
+from   abc; 
+
+
+create table sal_history  
+( 
+EMPID       number, 
+HIREDATE    date, 
+SAL          number 
+); 
+
+
+desc sal_history ; 
+
+
+drop table mgr_history ; 
+
+create table mgr_history 
+( 
+EMPID      number, 
+MGR        number, 
+SAL        number
+) ; 
+ 
+
+desc sal_history ; 
+desc mgr_history ; 
+
+
+INSERT ALL 
+INTO sal_history VALUES(EMPID,HIREDATE,SAL) 
+INTO mgr_history VALUES(EMPID,MGR,SAL) 
+SELECT employee_id EMPID, hire_date HIREDATE, 
+salary SAL, manager_id MGR 
+FROM   employees 
+WHERE  employee_id > 200 ; 
+
+
+create table emp_history  
+( 
+EMPID      number, 
+HIREDATE   date, 
+SAL        number
+) ; 
+
+
+create table emp_sales 
+( 
+EMPID      number, 
+COMM       number, 
+SAL        number 
+) ; 
+
+
+INSERT ALL 
+WHEN   HIREDATE < '01-JAN-03' THEN 
+INTO  emp_history VALUES(EMPID, HIREDATE, SAL) 
+WHEN   COMM IS NOT NULL THEN 
+INTO  emp_sales VALUES(EMPID, COMM, SAL) 
+SELECT employee_id EMPID, hire_date HIREDATE, 
+salary SAL, commission_pct COMM 
+FROM   employees ; 
+
+
+create table sal_low  
+( 
+employee_id number,  
+last_name   varchar2(20), 
+salary      number 
+) ; 
+
+
+
+create table sal_mid 
+( 
+employee_id number,  
+last_name   varchar2(20), 
+salary      number 
+) ; 
+
+
+create table sal_high 
+( 
+employee_id number,  
+last_name   varchar2(20), 
+salary      number 
+) ;
+
+
+
+INSERT FIRST 
+WHEN  salary < 5000 THEN 
+INTO sal_low VALUES (employee_id, last_name, salary) 
+WHEN  salary between 5000 and 10000 THEN 
+INTO sal_mid VALUES (employee_id, last_name, salary) 
+ELSE 
+INTO sal_high VALUES (employee_id, last_name, salary) 
+SELECT employee_id, last_name, salary 
+FROM   employees ; 
+
+
+select * 
+from   sal_low  
+order  by salary; 
+
+select * 
+from   sal_mid  
+order  by salary; 
+
+select * 
+from   sal_high  
+order  by salary; 
+
+
+create table SALES_SOURCE_DATA 
+( 
+EMPLOYEE_ID number,  
+WEEK_ID     number,  
+SALES_MON   number,   
+SALES_TUE   number,    
+SALES_WED   number,   
+SALES_THUR  number,   
+SALES_FRI   number  
+) ; 
+
+
+insert into SALES_SOURCE_DATA  
+values(176, 6, 2000, 3000, 4000, 5000, 6000) ; 
+
+commit;
+
+select *  
+from   SALES_SOURCE_DATA ; 
+
+
+create table SALES_INFO 
+(  
+EMPLOYEE_ID number ,  
+WEEK        number ,  
+SALES       number  
+) ; 
+
+
+INSERT ALL 
+INTO sales_info VALUES (employee_id, week_id, sales_MON) 
+INTO sales_info VALUES (employee_id, week_id, sales_TUE) 
+INTO sales_info VALUES (employee_id, week_id, sales_WED) 
+INTO sales_info VALUES (employee_id, week_id, sales_THUR) 
+INTO sales_info VALUES (employee_id, week_id, sales_FRI) 
+SELECT EMPLOYEE_ID, week_id, sales_MON, sales_TUE, 
+sales_WED, sales_THUR,sales_FRI 
+FROM   sales_source_data ; 
+
+select *  
+from   SALES_SOURCE_DATA ; 
+select *  
+from   SALES_INFO ; 
+
+
+
+merge into destination a 
+using source b 
+on (a.empid=b.empid) 
+when matched then 
+update 
+set a.ename=b.ename, 
+a.sal  =b.sal 
+when not matched then 
+insert  
+values(b.empid, b.ename, b.sal); 
+
+
+drop table emp purge; 
+
+create table emp as select * from employees; 
+
+
+select salary from emp where employee_id = 180; 
+
+update emp 
+set    salary = 3500 
+where  employee_id = 180; 
+
+commit
+
+select salary from emp where employee_id = 180;
+
+update emp 
+set    salary = 3800 
+where  employee_id = 180; 
+
+commit
+
+select salary from emp where employee_id = 180;
+ 
+update emp 
+set    salary = 3200 
+where  employee_id = 180; 
+
+commit 
+
+select salary from emp where employee_id = 180; 
+
+SELECT salary, user,  
+to_char(versions_starttime, 'DD-Mon-RRRR hh:mi:ssam') START_DATE, 
+to_char(versions_endtime, 'DD-Mon-RRRR hh:mi:ssam') END_DATE 
+FROM   emp 
+VERSIONS BETWEEN SCN MINVALUE AND MAXVALUE 
+WHERE  employee_id = 180 
+order  by START_DATE ; 
